@@ -7,8 +7,14 @@
     <title>Pomodoro</title>
     <link rel="icon" type="image/png" href="favicon.png" />
     <link rel="apple-touch-icon" href="favicon.png" />
+    <link rel="manifest" href="manifest.json" />
   </head>
   <body>
     <script src="pomodoro.js"></script>
+    <script>
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker.register("service-worker.js");
+      }
+    </script>
   </body>
 </html>
