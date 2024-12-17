@@ -11,7 +11,7 @@ const openClock = () => {
   const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
   const audio = document.createElement("audio");
   style.textContent =
-    "body {margin:0; background:#111; display:flex; height:100svh; justify-content:center; align-items:center; user-select:none;}" +
+    "body {margin:0; background:black; display:flex; height:100svh; justify-content:center; align-items:center; user-select:none;}" +
     "div {font-size:25svmin; font-family:impact;}" +
     "svg {width:100svmin; height:100svmin; position:fixed;}" +
     "span {color:white; position:fixed; bottom:0; left:0;}";
@@ -66,7 +66,7 @@ const openClock = () => {
   function getPath(Θ, isWork) {
     if (Θ < 0.001) return "";
     const r = isWork ? 0.9 : 0.85;
-    const width = isWork ? 0.06 : 0.02;
+    const width = isWork ? 0.06 : 0.01;
     const color = isWork ? WORK_COLOR : BREAK_COLOR;
     const style = `fill="none" stroke="${color}" stroke-width="${width}"`;
     if (Θ > 0.999) return `<circle cx="0" cy="0" r="${r}" ${style}/>`;
