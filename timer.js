@@ -2,14 +2,13 @@ import { play } from "./play.js";
 import { updateCounter } from "./counter.js";
 import { updateSvg } from "./svg.js";
 
-export function timerReset(e) {
+export function timerReset() {
   clearInterval(interval);
   interval = undefined;
   type = "work";
   seconds = WORK_SEC;
   count = 0;
   update();
-  e?.stopPropagation();
 }
 
 export function timerToggle() {

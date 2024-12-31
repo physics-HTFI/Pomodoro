@@ -2,23 +2,32 @@ import { timerReset, timerToggle } from "./timer.js";
 import { getStyle } from "./style.js";
 import { getCounter } from "./counter.js";
 import { getSvg } from "./svg.js";
+import { getPopupButton, popupWindow } from "./popupButton.js";
+import { resetCounter } from "./counter.js";
 
-export function getPomodoro() {
-  const pomodoro = document.createElement("div");
-  pomodoro.id = "pomodoro-main";
+/**
+ * ポモドーロタイマー要素を返す
+ */
+export const getPomodoro = () => pomodoro;
 
-  // 要素を追加
-  const style = getStyle();
-  const svg = getSvg();
-  const counter = getCounter();
-  pomodoro.append(style, svg, counter);
+//|
+//| ローカル
+//|
 
-  // イベントハンドラを追加
-  const event = window.ontouchstart ? "touch" : "click";
-  pomodoro.addEventListener(event, timerToggle);
-  counter.addEventListener(event, timerReset);
+const pomodoro = document.createElement("div");
+pomodoro.id = "pomodoro-main";
 
-  timerReset();
+// 要素を追加
+const style = getStyle();
+const svg = getSvg();
+const counter = getCounter();
+const popup = getPopupButton();
+pomodoro.append(style, svg, counter, popup);
 
-  return pomodoro;
-}
+// イベントハンドラを追加
+const event = window.ontouchstart ? "touch" : "click";
+pomodoro.addEventListener(event, timerToggle);
+counter.addEventListener(event, resetCounter);
+popup.addEventListener(event, popupWindow);
+
+timerReset();

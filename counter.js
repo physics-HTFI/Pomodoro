@@ -1,4 +1,4 @@
-import { getCount } from "./timer.js";
+import { getCount, timerReset } from "./timer.js";
 
 /**
  * カウンター要素を返す
@@ -10,6 +10,14 @@ export const getCounter = () => counter;
  */
 export function updateCounter() {
   counter.innerHTML = `🍅×${getCount()}`;
+}
+
+/**
+ * カウンターをリセットする
+ */
+export function resetCounter(e) {
+  e?.stopPropagation();
+  timerReset();
 }
 
 //|
