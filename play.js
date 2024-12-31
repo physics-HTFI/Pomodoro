@@ -1,7 +1,18 @@
 /**
  * タイムアップ時の効果音を再生する
  */
-export const play = () => audio.play();
+export function play() {
+  audio.pause();
+  audio.currentTime = 0;
+  audio.play();
+}
+
+/**
+ * 出力デバイスを変更する
+ */
+export async function setPlayDevice(id) {
+  await audio.setSinkId(id);
+}
 
 //|
 //| ローカル
