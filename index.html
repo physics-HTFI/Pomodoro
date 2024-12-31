@@ -9,8 +9,11 @@
     <link rel="apple-touch-icon" href="favicon.png" />
     <link rel="manifest" href="manifest.json" />
   </head>
-  <body>
-    <script src="pomodoro.js"></script>
+  <body style="margin: 0">
+    <script type="module">
+      import { getPomodoro } from "./pomodoro.js";
+      document.body.append(getPomodoro());
+    </script>
     <script>
       if ("serviceWorker" in navigator) {
         navigator.serviceWorker.register("service-worker.js");
