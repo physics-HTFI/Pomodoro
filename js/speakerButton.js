@@ -15,6 +15,7 @@ export const getSpeakerSelectDialog = () => speakerSelectDialog;
  */
 export async function getSpeakers(e) {
   e?.stopPropagation();
+  play();
   if (speakerSelect.children.length === 0) {
     await navigator.mediaDevices.getUserMedia({ audio: true });
     const devices = (await navigator.mediaDevices.enumerateDevices()).filter(
