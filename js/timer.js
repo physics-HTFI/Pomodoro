@@ -29,6 +29,9 @@ export function timerToggle() {
     }
     update();
   }, 1000);
+  if (type === "work" && seconds === WORK_SEC) {
+    play();
+  }
   update();
 }
 

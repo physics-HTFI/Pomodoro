@@ -20,3 +20,4 @@ export async function setPlayDevice(id) {
 
 const audio = document.createElement("audio");
 audio.src = "sound.mp3";
+audio.preload = "auto"; // これがないと初回の再生が遅れる
