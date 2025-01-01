@@ -1,4 +1,5 @@
 import { getPomodoro } from "./pomodoro.js";
+import { getSpeakerButton } from "./speakerButton.js";
 
 /**
  * ポップアップボタン要素を返す
@@ -15,12 +16,15 @@ export async function popupWindow(e) {
     height: 200,
     disallowReturnToOpener: true,
   });
-  popupButton.hidden = true;
   const pomodoro = getPomodoro();
+  const speakerButton = getSpeakerButton();
+  popupButton.hidden = true;
+  speakerButton.hidden = true;
   pipWindow.document.body.style = "margin: 0;";
   pipWindow.document.body.append(pomodoro);
   pipWindow.addEventListener("unload", () => {
     popupButton.hidden = false;
+    speakerButton.hidden = false;
     document.body.append(pomodoro);
   });
 }
