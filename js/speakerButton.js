@@ -19,7 +19,7 @@ export async function getSpeakers(e) {
   if (speakerSelect.children.length === 0) {
     await navigator.mediaDevices.getUserMedia({ audio: true });
     const devices = (await navigator.mediaDevices.enumerateDevices()).filter(
-      (d) => d.kind === "audiooutput"
+      (d) => d.kind === "audiooutput" && d.deviceId !== "default"
     );
     console.log(devices);
     if (devices.length === 0) return;

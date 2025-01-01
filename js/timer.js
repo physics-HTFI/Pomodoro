@@ -27,6 +27,9 @@ export function timerToggle() {
       count += endWork ? 1 : 0;
       play();
     }
+    if (seconds === 10) {
+      play(0.0001); // 予め無音で再生しておくと、実際に鳴らしたときに遅延しない（0だと効果なし）
+    }
     update();
   }, 1000);
   if (type === "work" && seconds === WORK_SEC) {
