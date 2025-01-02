@@ -3,11 +3,15 @@ import { updateCounter } from "./counter.js";
 import { updateSvg } from "./svg.js";
 
 export function timerReset() {
+  const resetAll =
+    type === "work" && seconds === WORK_SEC && interval === undefined;
+  if (resetAll) {
+    count = 0;
+  }
   clearInterval(interval);
   interval = undefined;
   type = "work";
   seconds = WORK_SEC;
-  count = 0;
   update();
 }
 
