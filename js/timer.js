@@ -2,14 +2,23 @@ import { play } from "./play.js";
 import { updateCounter } from "./counter.js";
 import { updateSvg } from "./svg.js";
 
+/**
+ * タイマーをリセットする
+ */
 export function timerReset() {
-  count = 0;
-  stop();
+  clearInterval(interval);
+  interval = undefined;
+  type = "work";
+  seconds = WORK_SEC;
+  updateSvg();
+  updateCounter();
 }
-
+/**
+ * タイマーの開始／停止を切り替える
+ */
 export function timerToggle() {
   if (isRunning()) {
-    stop();
+    timerReset();
     return;
   }
   interval = setInterval(() => {
@@ -18,18 +27,19 @@ export function timerToggle() {
       const endWork = type === "work";
       type = endWork ? "break" : "work";
       seconds = endWork ? BREAK_SEC : WORK_SEC;
-      count += endWork ? 1 : 0;
+      updateCounter(endWork);
       play();
     }
     if (seconds === 10) {
       play(0.0001); // 予め無音で再生しておくと、実際に鳴らしたときに遅延しない（0だと効果なし）
     }
-    update();
+    updateSvg();
   }, 1000);
   if (type === "work" && seconds === WORK_SEC) {
     play();
   }
-  update();
+  updateSvg();
+  updateCounter();
 }
 
 /**
@@ -55,7 +65,6 @@ export function getTimeString() {
 
 export const isWorking = () => type === "work";
 export const isRunning = () => interval !== undefined;
-export const getCount = () => count;
 
 //|
 //| ローカル
@@ -64,21 +73,7 @@ export const getCount = () => count;
 const WORK_SEC = 25 * 60;
 const BREAK_SEC = 5 * 60;
 
-function stop() {
-  clearInterval(interval);
-  interval = undefined;
-  type = "work";
-  seconds = WORK_SEC;
-  update();
-}
-
-function update() {
-  updateSvg();
-  updateCounter();
-}
-
 let interval;
 let type; // "work" | "break"
 let seconds;
-let count;
 timerReset();
