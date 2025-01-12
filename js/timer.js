@@ -3,23 +3,13 @@ import { updateCounter } from "./counter.js";
 import { updateSvg } from "./svg.js";
 
 export function timerReset() {
-  const resetAll =
-    type === "work" && seconds === WORK_SEC && interval === undefined;
-  if (resetAll) {
-    count = 0;
-  }
-  clearInterval(interval);
-  interval = undefined;
-  type = "work";
-  seconds = WORK_SEC;
-  update();
+  count = 0;
+  stop();
 }
 
 export function timerToggle() {
   if (isRunning()) {
-    clearInterval(interval);
-    interval = undefined;
-    update();
+    stop();
     return;
   }
   interval = setInterval(() => {
@@ -73,6 +63,14 @@ export const getCount = () => count;
 
 const WORK_SEC = 25 * 60;
 const BREAK_SEC = 5 * 60;
+
+function stop() {
+  clearInterval(interval);
+  interval = undefined;
+  type = "work";
+  seconds = WORK_SEC;
+  update();
+}
 
 function update() {
   updateSvg();
