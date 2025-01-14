@@ -14,27 +14,30 @@ export function updateCounter(increments) {
   if (counts.size === 0) {
     counts.set(today(), 0);
   } else {
+    // 日をまたいだ時にキーを追加する
+    for (let i = [...counts.keys()].pop() + 1; i <= keyToday; i++) {
+      counts.set(i, 0);
+    }
     // 古いものを削除
     for (const key of [...counts.keys()]) {
       if (keyToday - key >= 30) {
         counts.delete(key);
       }
     }
-    // 日をまたいだ時にキーを追加する
-    for (let i = [...counts.keys()].pop() + 1; i <= keyToday; i++) {
-      counts.set(i, 0);
-    }
   }
   if (increments) {
     counts.set(keyToday, counts.get(keyToday) + 1);
   }
   const days = ["日", "月", "火", "水", "木", "金", "土"];
-  const i0 = new Date().getDay() + 7 * counts.size;
-  const str = [...counts.values()]
-    .reverse()
-    .map((c, i) => `<span class="${days[(i0 - i) % 7]}">${c}</span>`)
-    .join("");
-  counter.innerHTML = `🍅×${str}`;
+  const str = [...counts.values()].reverse().map(span).join("");
+  counter.innerHTML = `🍅:${str}`;
+
+  // ローカル関数
+  function span(day, count) {
+    const day0 = new Date().getDay() + 7 * counts.size;
+    const c = `${Math.trunc(count / 2)}${count % 2 === 0 ? "" : "'"}`;
+    return `<span class="${days[(day0 - day) % 7]}">${c}</span>`;
+  }
 }
 
 /**
