@@ -28,6 +28,7 @@ export function updateCounter(increments) {
   if (increments) {
     counts.set(keyToday, counts.get(keyToday) + 1);
   }
+  save();
   const days = ["日", "月", "火", "水", "木", "金", "土"];
   const str = [...counts.values()].reverse().map(span).join("");
   counter.innerHTML = `🍅:${str}`;
@@ -55,6 +56,7 @@ export function resetCounter(e) {
 //|
 
 const counts = new Map();
+load();
 
 const counter = document.createElement("span");
 counter.id = "pomodoro-counter";
@@ -64,4 +66,18 @@ function today() {
   return (
     (date.getFullYear() * 100 + date.getMonth() + 1) * 100 + date.getDate()
   );
+}
+
+function save() {
+  localStorage.setItem("counts", JSON.stringify(Object.fromEntries(counts)));
+}
+
+function load() {
+  counts.clear();
+  const old = localStorage.getItem("counts");
+  if (!old) return;
+  const parsed = JSON.parse(old);
+  for (const key in parsed) {
+    counts.set(key, parsed[key]);
+  }
 }
