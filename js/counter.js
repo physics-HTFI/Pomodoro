@@ -10,23 +10,26 @@ export const getCounter = () => counter;
  * `increments === true`の場合は、カウンターをインクリメントする。
  */
 export function updateCounter(increments) {
-  const keyToday = today();
+  const today = getTodayKey();
+  console.log(counts);
   if (counts.size === 0) {
-    counts.set(today(), 0);
+    counts.set(today, 0);
   } else {
     // 日をまたいだ時にキーを追加する
-    for (let i = [...counts.keys()].pop() + 1; i <= keyToday; i++) {
+    console.log(counts);
+    for (let i = [...counts.keys()].at(-1) + 1; i <= today; i++) {
+      console.log(i);
       counts.set(i, 0);
     }
     // 古いものを削除
     for (const key of [...counts.keys()]) {
-      if (keyToday - key >= 30) {
+      if (today - key >= 30) {
         counts.delete(key);
       }
     }
   }
   if (increments) {
-    counts.set(keyToday, counts.get(keyToday) + 1);
+    counts.set(today, counts.get(today) + 1);
   }
   save();
   const days = ["日", "月", "火", "水", "木", "金", "土"];
@@ -55,13 +58,12 @@ export function resetCounter(e) {
 //| ローカル
 //|
 
-const counts = new Map();
-load();
+const counts = loadCounts();
 
 const counter = document.createElement("span");
 counter.id = "pomodoro-counter";
 
-function today() {
+function getTodayKey() {
   const date = new Date();
   return (
     (date.getFullYear() * 100 + date.getMonth() + 1) * 100 + date.getDate()
@@ -72,12 +74,13 @@ function save() {
   localStorage.setItem("counts", JSON.stringify(Object.fromEntries(counts)));
 }
 
-function load() {
-  counts.clear();
+function loadCounts() {
+  const counts = new Map();
   const old = localStorage.getItem("counts");
-  if (!old) return;
+  if (!old) return counts;
   const parsed = JSON.parse(old);
   for (const key in parsed) {
-    counts.set(key, parsed[key]);
+    counts.set(Number(key), parsed[key]);
   }
+  return counts;
 }
