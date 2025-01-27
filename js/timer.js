@@ -6,19 +6,20 @@ import { updateSvg } from "./svg.js";
  * タイマーをリセットする
  */
 export function timerReset() {
-  clearInterval(interval);
-  interval = undefined;
   type = "work";
   seconds = WORK_SEC;
-  updateSvg();
-  updateCounter();
+  timerStop();
 }
 /**
  * タイマーの開始／停止を切り替える
  */
 export function timerToggle() {
   if (isRunning()) {
-    timerReset();
+    if (isWorking()) {
+      timerStop();
+    } else {
+      timerReset();
+    }
     return;
   }
   interval = setInterval(() => {
@@ -77,3 +78,10 @@ let interval;
 let type; // "work" | "break"
 let seconds;
 timerReset();
+
+export function timerStop() {
+  clearInterval(interval);
+  interval = undefined;
+  updateSvg();
+  updateCounter();
+}
