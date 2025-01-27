@@ -3,7 +3,6 @@ import { getStyle } from "./style.js";
 import { getCounter } from "./counter.js";
 import { getSvg } from "./svg.js";
 import { getPopupButton, popupWindow } from "./popupButton.js";
-import { resetCounter } from "./counter.js";
 import {
   getSpeakerButton,
   getSpeakerSelectDialog,
@@ -34,8 +33,11 @@ pomodoro.append(style, svg, counter, popup, speakerButton, speakerSelectDialog);
 // イベントハンドラを追加
 const event = window.ontouchstart ? "touch" : "click";
 pomodoro.addEventListener(event, timerToggle);
-counter.addEventListener(event, resetCounter);
 popup.addEventListener(event, popupWindow);
 speakerButton.addEventListener(event, getSpeakers);
+counter.addEventListener(event, (e) => {
+  timerReset();
+  e.stopPropagation();
+});
 
 timerReset();

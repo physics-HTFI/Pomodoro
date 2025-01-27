@@ -39,7 +39,7 @@ export function updateCounter(increments) {
   }
   function toSpan月(count, i) {
     const i0 = new Date().getMonth() + 12 * counts月.size;
-    return `<span class="${(i0 - i + 1) % 12}月">${count}</span>`;
+    return `<span class="月${(i0 - i + 1) % 12}">${count}</span>`;
   }
   function toSpan(count) {
     return `<span>${count}</span>`;
