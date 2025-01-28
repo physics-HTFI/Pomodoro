@@ -34,15 +34,18 @@ export function updateCounter(increments) {
   function toSpan日(count, i) {
     const days = ["日", "月", "火", "水", "木", "金", "土"];
     const i0 = new Date().getDay() + 7 * counts日.size;
-    const c = `${Math.trunc(count / 2)}${count % 2 === 0 ? "" : "'"}`;
-    return `<span class="${days[(i0 - i) % 7]}">${c}</span>`;
+    return `<span class="${days[(i0 - i) % 7]}">${toStr(count)}</span>`;
   }
   function toSpan月(count, i) {
     const i0 = new Date().getMonth() + 12 * counts月.size;
-    return `<span class="月${(i0 - i + 1) % 12}">${count}</span>`;
+    // (クラス名は数字始まりにできない)
+    return `<span class="月${(i0 - i + 1) % 12}">${toStr(count)}</span>`;
   }
   function toSpan(count) {
-    return `<span>${count}</span>`;
+    return `<span>${toStr(count)}</span>`;
+  }
+  function toStr(count) {
+    return `${Math.trunc(count / 2)}${count % 2 === 0 ? "" : "'"}`;
   }
   function take(map, max) {
     for (const key of [...map.keys()]) {
