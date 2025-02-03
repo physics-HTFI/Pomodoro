@@ -11,10 +11,10 @@ export const getCounter = () => counter;
  */
 export function updateCounter(increments) {
   // カウント値を更新
-  increment(counts日, getDayKey(), increments, 1);
-  increment(counts週, getWeekKey(), increments, 7);
-  increment(counts月, getMonthKey(), increments, 1);
-  increment(counts年, getYearKey(), increments, 1);
+  increment("day", counts日, increments);
+  increment("week", counts週, increments);
+  increment("month", counts月, increments);
+  increment("year", counts年, increments);
   // 古いものを削除
   take(counts日, 30);
   take(counts週, 30);
@@ -53,13 +53,17 @@ export function updateCounter(increments) {
       map.delete(key);
     }
   }
-  function increment(map, key, increments, step) {
+  function increment(type, map, increments) {
+    const key = getKey(type);
     if (map.size === 0) {
       map.set(key, 0);
     } else {
       // 日をまたいだ時にキーを追加する
-      for (let i = [...map.keys()].at(-1) + step; i <= key; i += step) {
-        map.set(i, 0);
+      let lastKey = [...map.keys()].at(-1);
+      for (;;) {
+        lastKey = getNextKey(type, lastKey);
+        if (lastKey > key) break;
+        map.set(lastKey, 0);
       }
     }
     if (!increments) return;
@@ -98,22 +102,46 @@ counter月.id = "pomodoro-counter-月";
 counter年.id = "pomodoro-counter-年";
 counter.append(counter日, counter週, counter月, counter年);
 
-function getDayKey(d) {
+function getKey(type, d) {
   d ??= new Date();
-  return (d.getFullYear() * 100 + d.getMonth() + 1) * 100 + d.getDate();
-}
-function getWeekKey() {
-  const d = new Date();
-  for (; ; d.setDate(d.getDate() - 1)) {
-    if (d.getDay() === 1) return getDayKey(d);
+  switch (type) {
+    case "year":
+      return d.getFullYear();
+    case "month":
+      return d.getFullYear() * 100 + d.getMonth() + 1;
+    case "week":
+      for (; ; d.setDate(d.getDate() - 1)) {
+        if (d.getDay() === 1) break;
+      }
+    case "day":
+      return (d.getFullYear() * 100 + d.getMonth() + 1) * 100 + d.getDate();
   }
+  return null;
 }
-function getMonthKey() {
-  const d = new Date();
-  return d.getFullYear() * 100 + d.getMonth() + 1;
-}
-function getYearKey() {
-  return new Date().getFullYear();
+function getNextKey(type, key) {
+  let year;
+  let month = 1;
+  let day = 1;
+  switch (type) {
+    case "day":
+    case "week":
+      year = Math.trunc(key / 10000);
+      month = Math.trunc(key / 100) % 100;
+      day = key % 100;
+      day += type === "day" ? 1 : 7;
+      break;
+    case "month":
+      year = Math.trunc(key) / 100;
+      month = key % 100;
+      month += 1;
+      break;
+    case "year":
+      year = key;
+      year += 1;
+      break;
+  }
+  const date = new Date(year, month - 1, day);
+  return getKey(type, date);
 }
 
 function saveCounts() {
