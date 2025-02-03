@@ -1,5 +1,5 @@
 import { useCallback } from "react";
-import { derivCounts } from "../atoms/derivCounts";
+import { atomCounts } from "../atoms/atomCounts";
 import { useAtomValue, useSetAtom } from "jotai";
 import { TypeCounts } from "../types/TypeCounts";
 import { TypeCategory } from "../types/TypeCategory";
@@ -9,7 +9,7 @@ import { derivTimerReset } from "../atoms/derivTimerReset";
  * カウント値を表示するコンポーネントのカスタムフック
  */
 export function useCounter() {
-  const counts = useAtomValue(derivCounts);
+  const counts = useAtomValue(atomCounts.atom);
   const timerReset = useSetAtom(derivTimerReset);
   const handleClick = useCallback(
     (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {

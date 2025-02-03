@@ -48,7 +48,7 @@ export function useSettingsDialog() {
           },
         ],
       });
-      setFile(fileHandle);
+      await setFile(fileHandle);
     } catch {
       /* */
     }

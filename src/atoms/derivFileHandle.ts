@@ -1,9 +1,9 @@
 import { atom } from "jotai";
-import { derivCounts } from "./derivCounts";
+import { atomCounts } from "./atomCounts";
 import { deleteFileHandle, saveFileHandle } from "../utils/fileHandle";
 
 export const derivFileHandle = atom(
-  async (get) => get(atomFileHandle),
+  (get) => get(atomFileHandle),
   async (_get, set, fileHandle?: FileSystemFileHandle) => {
     set(atomFileHandle, undefined);
     if (!fileHandle) return;
@@ -28,7 +28,7 @@ export const derivFileHandle = atom(
       if (!isOk) return;
       await saveFileHandle(fileHandle);
       set(atomFileHandle, fileHandle);
-      set(derivCounts, counts); // ここで書き込むのでアクセス許可アラートが出る
+      set(atomCounts.atom, counts); // ここで書き込むのでアクセス許可アラートが出る
     } catch {
       //
     }

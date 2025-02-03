@@ -1,5 +1,5 @@
 import { atom } from "jotai";
-import { derivCounts } from "./derivCounts";
+import { atomCounts } from "./atomCounts";
 import { derivFileHandle } from "./derivFileHandle";
 
 export const derivFileLoad = atom(null, async (get, set) => {
@@ -15,7 +15,7 @@ export const derivFileLoad = atom(null, async (get, set) => {
       "months" in counts &&
       "years" in counts;
     if (!isOk) return;
-    set(derivCounts, counts);
+    set(atomCounts, counts);
   } catch {
     //
   }

@@ -4,7 +4,6 @@ import { PipPopupButton } from "./components/PipPopupButton";
 import { Counter } from "./components/Counter";
 import { useCallback, useEffect } from "react";
 import { useSetAtom } from "jotai";
-import { derivCountsUpdate } from "./atoms/derivCountsUpdate";
 import { derivTimerToggle } from "./atoms/derivTimerToggle";
 import { derivTimerReset } from "./atoms/derivTimerReset";
 import { PipPortal } from "./components/PipPortal";
@@ -13,6 +12,7 @@ import { loadFileHandle } from "./utils/fileHandle";
 import { SettingsButton } from "./components/SettingsButton";
 import { SettingsDialog } from "./components/SettingsDialog";
 import { derivTimerSkip } from "./atoms/derivTimerSkip";
+import { atomCounts } from "./atoms/atomCounts";
 
 export function App() {
   const { handleKeyDown, toggleTimer } = useApp();
@@ -48,7 +48,7 @@ export function App() {
 
 function useApp() {
   const setFileHandle = useSetAtom(derivFileHandle);
-  const updateCounts = useSetAtom(derivCountsUpdate);
+  const updateCounts = useSetAtom(atomCounts.update);
   const moveTimer = useSetAtom(derivTimerSkip);
   const resetTimer = useSetAtom(derivTimerReset);
   const handleKeyDown = useCallback(

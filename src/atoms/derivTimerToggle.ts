@@ -4,13 +4,13 @@ import { derivTimerReset } from "./derivTimerReset";
 import { derivTimerStop } from "./derivTimerStop";
 import { CONST } from "../CONST";
 import { play } from "../utils/play";
-import { derivCountsUpdate } from "./derivCountsUpdate";
+import { atomCounts } from "./atomCounts";
 
 /**
  * タイマーの開始／停止を切り替える
  */
 export const derivTimerToggle = atom(null, (get, set) => {
-  set(derivCountsUpdate);
+  set(atomCounts.update);
   const timer = get(atomTimer);
   const isRunning = timer.intervalId !== undefined;
   if (isRunning) {
@@ -28,7 +28,7 @@ export const derivTimerToggle = atom(null, (get, set) => {
       const endWork = timer.status === "work";
       timer.status = endWork ? "break" : "work";
       timer.seconds = endWork ? CONST.timer.break_sec : CONST.timer.work_sec;
-      set(derivCountsUpdate, endWork ? 1 : 0);
+      set(atomCounts.update, endWork ? 1 : 0);
       play();
     }
     set(atomTimer, { ...timer });
