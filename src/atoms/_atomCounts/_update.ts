@@ -1,60 +1,51 @@
 import { TypeCategory } from "../../types/TypeCategory";
 import { TypeCounts } from "../../types/TypeCounts";
 import { _getKey } from "./_getKey";
+import { _getNextKey } from "./_getNextKey";
+import { _trimOldEntries } from "./_trimOldEntries";
+import { _valid } from "./_valid";
+
+/**
+ * 必要であれば日付の追加を行う。
+ * また、今日のカウント値を `delta` だけ変更する。
+ */
+export function _update(counts: TypeCounts, delta?: number) {
+  delta ??= 0;
+
+  // これ以上カウント値を引けない場合は何もしない
+  if (!_valid(counts, delta)) return;
+
+  // 各カウント値を delta だけ変更する
+  _updatePerCategory("days", counts, delta, 1000);
+  _updatePerCategory("weeks", counts, delta, 1000);
+  _updatePerCategory("months", counts, delta);
+  _updatePerCategory("years", counts, delta);
+}
 
 /**
  * `counts[category]` の今日の値を `delta`だけ変化させる。
  * 今日に対応するキーがない場合は追加する。
  */
-export function _update(
+export function _updatePerCategory(
   category: TypeCategory,
   counts: TypeCounts,
   delta: number,
   maxNum?: number
 ) {
   const todayKey = _getKey(category);
-  const target = counts[category];
-  let lastKey = target.at(-1)?.key;
+  const record = counts[category];
+  let lastKey = Object.keys(record).pop();
   if (!lastKey) {
     // 空の場合は今日のキーを追加する
-    target.push({ key: todayKey, count: 0 });
+    record[todayKey] = 0;
   } else {
     // 日をまたいだ時にキーを追加する
     for (;;) {
-      lastKey = getNextKey(category, lastKey);
+      lastKey = _getNextKey(category, lastKey);
       if (lastKey > todayKey) break;
-      target.push({ key: lastKey, count: 0 });
+      record[lastKey] = 0;
     }
   }
-  target.at(-1)!.count += delta;
-  counts[category] = target.slice(-(maxNum ?? 0));
-}
-
-/**
- * ex) 20241231 => 20250101
- */
-function getNextKey(category: TypeCategory, key: number) {
-  let year;
-  let month = 1;
-  let day = 1;
-  switch (category) {
-    case "days":
-    case "weeks":
-      year = Math.trunc(key / 10000);
-      month = Math.trunc(key / 100) % 100;
-      day = key % 100;
-      day += category === "days" ? 1 : 7;
-      break;
-    case "months":
-      year = Math.trunc(key) / 100;
-      month = key % 100;
-      month += 1;
-      break;
-    case "years":
-      year = key;
-      year += 1;
-      break;
-  }
-  const date = new Date(year, month - 1, day);
-  return _getKey(category, date);
+  record[Object.keys(record).pop()!] += delta;
+  counts[category] = _trimOldEntries(record, maxNum ?? 0);
 }

@@ -15,7 +15,7 @@ export const derivFileLoad = atom(null, async (get, set) => {
       "months" in counts &&
       "years" in counts;
     if (!isOk) return;
-    set(atomCounts, counts);
+    set(atomCounts.atom, counts);
   } catch {
     //
   }

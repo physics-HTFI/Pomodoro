@@ -38,10 +38,7 @@ interface TypeCountSpan {
 }
 
 function getSpans(counts: TypeCounts, category: TypeCategory): TypeCountSpan[] {
-  return counts[category]
-    .map((c) => c.count)
-    .reverse()
-    .map(toSpan);
+  return Object.values(counts[category]).reverse().map(toSpan);
 
   function toSpan(c: number, i: number) {
     const count = `${Math.trunc(c / 2)}${c % 2 === 0 ? "" : "'"}`;
