@@ -2,7 +2,7 @@ import { TypeCategory } from "../../types/TypeCategory";
 
 /**
  * `date` をキーに変換して返す。
- * 省略した場合は今日のキーを変えす。
+ * 省略した場合は今日のキーを返す。
  * ex) `Date` => `20250101`
  */
 export function _getKey(type: TypeCategory, date?: Date) {

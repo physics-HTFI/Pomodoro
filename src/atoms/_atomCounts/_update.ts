@@ -3,7 +3,7 @@ import { TypeCounts } from "../../types/TypeCounts";
 import { _getKey } from "./_getKey";
 import { _getNextKey } from "./_getNextKey";
 import { _trimOldEntries } from "./_trimOldEntries";
-import { _valid } from "./_valid";
+import { _deltaIsValid } from "./_deltaIsValid";
 
 /**
  * 必要であれば日付の追加を行う。
@@ -13,25 +13,28 @@ export function _update(counts: TypeCounts, delta?: number) {
   delta ??= 0;
 
   // これ以上カウント値を引けない場合は何もしない
-  if (!_valid(counts, delta)) return;
+  if (!_deltaIsValid(counts, delta)) return;
+
+  // 今日の分までキーを追加する
+  addToday("days", counts);
+  addToday("weeks", counts);
+  addToday("months", counts);
+  addToday("years", counts);
 
   // 各カウント値を delta だけ変更する
-  _updatePerCategory("days", counts, delta, 1000);
-  _updatePerCategory("weeks", counts, delta, 1000);
-  _updatePerCategory("months", counts, delta);
-  _updatePerCategory("years", counts, delta);
+  addDelta("days", counts, delta);
+  addDelta("weeks", counts, delta);
+  addDelta("months", counts, delta);
+  addDelta("years", counts, delta);
+
+  // 多くなりすぎたキーを削除する
+  _trimOldEntries(counts["days"], 1000);
 }
 
 /**
- * `counts[category]` の今日の値を `delta`だけ変化させる。
- * 今日に対応するキーがない場合は追加する。
+ * `counts[category]` に今日に対応するキーがない場合は追加する。
  */
-export function _updatePerCategory(
-  category: TypeCategory,
-  counts: TypeCounts,
-  delta: number,
-  maxNum?: number
-) {
+function addToday(category: TypeCategory, counts: TypeCounts) {
   const todayKey = _getKey(category);
   const record = counts[category];
   let lastKey = Object.keys(record).pop();
@@ -46,6 +49,13 @@ export function _updatePerCategory(
       record[lastKey] = 0;
     }
   }
-  record[Object.keys(record).pop()!] += delta;
-  counts[category] = _trimOldEntries(record, maxNum ?? 0);
+}
+
+/**
+ * `counts[category]` の今日の値を `delta`だけ変化させる。
+ * 今日に対応するキーがない場合は追加する。
+ */
+function addDelta(category: TypeCategory, counts: TypeCounts, delta: number) {
+  const todayKey = _getKey(category);
+  counts[category][todayKey] += delta;
 }
