@@ -7,8 +7,6 @@ import { useSetAtom } from "jotai";
 import { derivTimerToggle } from "./atoms/derivTimerToggle";
 import { derivTimerReset } from "./atoms/derivTimerReset";
 import { PipPortal } from "./components/PipPortal";
-import { derivFileHandle } from "./atoms/derivFileHandle";
-import { loadFileHandle } from "./utils/fileHandle";
 import { SettingsButton } from "./components/SettingsButton";
 import { SettingsDialog } from "./components/SettingsDialog";
 import { derivTimerSkip } from "./atoms/derivTimerSkip";
@@ -47,14 +45,14 @@ export function App() {
 }
 
 function useApp() {
-  const setFileHandle = useSetAtom(derivFileHandle);
+  const resetFile = useSetAtom(atomCounts.resetFileFromIndexedDb);
   const updateCounts = useSetAtom(atomCounts.update);
   const moveTimer = useSetAtom(derivTimerSkip);
   const resetTimer = useSetAtom(derivTimerReset);
   const handleKeyDown = useCallback(
-    (e: React.KeyboardEvent<HTMLDivElement>) => {
-      if (e.key === "ArrowUp") updateCounts(1);
-      if (e.key === "ArrowDown") updateCounts(-1);
+    async (e: React.KeyboardEvent<HTMLDivElement>) => {
+      if (e.key === "ArrowUp") await updateCounts(1);
+      if (e.key === "ArrowDown") await updateCounts(-1);
       if (e.key === "ArrowLeft") moveTimer(60);
       if (e.key === "ArrowRight") moveTimer(-60);
     },
@@ -63,12 +61,12 @@ function useApp() {
   const toggleTimer = useSetAtom(derivTimerToggle);
   useEffect(() => {
     const effect = async () => {
-      setFileHandle(await loadFileHandle());
-      updateCounts();
+      await resetFile();
+      await updateCounts();
       resetTimer();
     };
     effect();
-  }, [updateCounts, resetTimer, setFileHandle]);
+  }, [updateCounts, resetTimer, resetFile]);
 
   return { handleKeyDown, toggleTimer };
 }

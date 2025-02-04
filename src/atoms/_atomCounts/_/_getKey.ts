@@ -1,4 +1,4 @@
-import { TypeCategory } from "../../types/TypeCategory";
+import { TypeCategory } from "../../../types/TypeCategory";
 
 /**
  * `date` をキーに変換して返す。

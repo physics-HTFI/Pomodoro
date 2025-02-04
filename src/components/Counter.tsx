@@ -6,19 +6,19 @@ import { TypeCategory } from "../types/TypeCategory";
  * カウント値を表示するコンポーネント
  */
 export function Counter() {
-  const { days, weeks, months, years, handleClick } = useCounter();
+  const { counts, handleClick } = useCounter();
 
   return (
     <Stack sx={styleStack} onClick={handleClick}>
-      <Box sx={styles.days}>{spans(days)}</Box>
-      <Box sx={styles.weeks}>{spans(weeks)}</Box>
-      <Box sx={styles.months}>{spans(months)}</Box>
-      <Box sx={styles.years}>{spans(years)}</Box>
+      <Box sx={styles.days}>{spans(counts.days)}</Box>
+      <Box sx={styles.weeks}>{spans(counts.weeks)}</Box>
+      <Box sx={styles.months}>{spans(counts.months)}</Box>
+      <Box sx={styles.years}>{spans(counts.years)}</Box>
     </Stack>
   );
 
-  function spans(counts: typeof days) {
-    return counts.map((c, i) => (
+  function spans(countsWithClassName: typeof counts.days) {
+    return countsWithClassName.map((c, i) => (
       <span key={`${i}`} className={c.className}>
         {c.count}
       </span>

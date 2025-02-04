@@ -1,4 +1,4 @@
-import { TypeCounts } from "../../types/TypeCounts";
+import { TypeCounts } from "../../../types/TypeCounts";
 import { _getKey } from "./_getKey";
 
 /**

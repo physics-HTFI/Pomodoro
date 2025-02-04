@@ -10,7 +10,7 @@ import {
   Stack,
   TextField,
 } from "@mui/material";
-import { Folder } from "@mui/icons-material";
+import { Delete, Folder } from "@mui/icons-material";
 import { useSettingsDialog } from "./useSettingsDialog";
 
 /**
@@ -23,6 +23,7 @@ export function SettingsDialog() {
     deviceId,
     devices,
     selectFile,
+    unselectFile,
     handleSelectSpeaker,
     handleClickToClose,
     handleClose,
@@ -36,6 +37,9 @@ export function SettingsDialog() {
           <TextField variant="standard" value={fileName} sx={{ width: 300 }} />
           <IconButton color="primary" onClick={selectFile}>
             <Folder />
+          </IconButton>
+          <IconButton color="primary" onClick={unselectFile}>
+            <Delete />
           </IconButton>
         </Stack>
       </DialogContent>

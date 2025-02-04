@@ -1,16 +1,15 @@
 import Dexie, { EntityTable } from "dexie";
 
-export async function loadFileHandle() {
-  return (await db.fileHandles.get(1))?.handle;
-}
+export const _indexedDb = {
+  fileHandle: {
+    get: async () => (await db.fileHandles.get(1))?.handle,
 
-export async function saveFileHandle(handle: FileSystemFileHandle) {
-  await db.fileHandles.put({ id: 1, handle });
-}
+    set: async (handle: FileSystemFileHandle) =>
+      await db.fileHandles.put({ id: 1, handle }),
 
-export async function deleteFileHandle() {
-  await db.fileHandles.delete(1);
-}
+    delete: async () => await db.fileHandles.delete(1),
+  },
+};
 
 //|
 //| ローカル

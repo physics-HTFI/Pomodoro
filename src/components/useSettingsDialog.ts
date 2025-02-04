@@ -1,13 +1,14 @@
-import { useAtom } from "jotai";
+import { useAtom, useAtomValue, useSetAtom } from "jotai";
 import { useCallback, useEffect, useState } from "react";
 import { atomPlayDeviceId } from "../atoms/atomPlayDeviceId";
 import { getPlayDevice, getPlayDevices, setPlayDevice } from "../utils/play";
 import { atomOpenSettingsDialog } from "../atoms/atomOpenSettingsDialog";
-import { derivFileHandle } from "../atoms/derivFileHandle";
+import { atomCounts } from "../atoms/atomCounts";
 
 export function useSettingsDialog() {
   const [open, setOpen] = useAtom(atomOpenSettingsDialog);
-  const [file, setFile] = useAtom(derivFileHandle);
+  const fileName = useAtomValue(atomCounts.getFileName) ?? "";
+  const setFile = useSetAtom(atomCounts.setFile);
   const [deviceId, setDeviceId] = useAtom(atomPlayDeviceId);
   const [devices, setDevices] = useState<MediaDeviceInfo[]>();
   useEffect(() => {
@@ -53,14 +54,18 @@ export function useSettingsDialog() {
       /* */
     }
   }, [setFile]);
+  const unselectFile = useCallback(
+    async () => await setFile(undefined),
+    [setFile]
+  );
 
-  const fileName = file?.name ?? "";
   return {
     open,
     fileName,
     deviceId,
     devices,
     selectFile,
+    unselectFile,
     handleClose,
     handleClickToClose,
     handleSelectSpeaker,

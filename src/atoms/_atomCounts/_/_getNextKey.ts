@@ -1,4 +1,4 @@
-import { TypeCategory } from "../../types/TypeCategory";
+import { TypeCategory } from "../../../types/TypeCategory";
 import { _getKey } from "./_getKey";
 
 /**

@@ -1,17 +1,15 @@
 import { TypeCategory } from "../../types/TypeCategory";
 import { TypeCounts } from "../../types/TypeCounts";
-import { _getKey } from "./_getKey";
-import { _getNextKey } from "./_getNextKey";
-import { _trimOldEntries } from "./_trimOldEntries";
-import { _deltaIsValid } from "./_deltaIsValid";
+import { _getKey } from "./_/_getKey";
+import { _getNextKey } from "./_/_getNextKey";
+import { _trimOldEntries } from "./_/_trimOldEntries";
+import { _deltaIsValid } from "./_/_deltaIsValid";
 
 /**
  * 必要であれば日付の追加を行う。
  * また、今日のカウント値を `delta` だけ変更する。
  */
-export function _update(counts: TypeCounts, delta?: number) {
-  delta ??= 0;
-
+export function _update(counts: TypeCounts, delta: number) {
   // これ以上カウント値を引けない場合は何もしない
   if (!_deltaIsValid(counts, delta)) return;
 
