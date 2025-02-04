@@ -5,7 +5,7 @@ import { TypeCategory } from "../../../types/TypeCategory";
  * 省略した場合は今日のキーを返す。
  * ex) `Date` => `20250101`
  */
-export function _getKey(type: TypeCategory, date?: Date) {
+export function getKey(type: TypeCategory, date?: Date) {
   date ??= new Date();
   const key = getKeyNumber(type, date);
   return `${key}`;

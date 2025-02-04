@@ -5,4 +5,9 @@ declare global {
       mode?: "read" | "write" | "readwrite";
     }) => Promise<PermissionState>;
   }
+
+  interface AudioContext {
+    setSinkId: (id: string) => Promise<unknown>;
+    sinkId: string;
+  }
 }

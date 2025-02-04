@@ -1,11 +1,11 @@
 import { TypeCategory } from "../../../types/TypeCategory";
-import { _getKey } from "./_getKey";
+import { getKey } from "./_getKey";
 
 /**
  * `key`の次に来るキーを返す。
  * ex) "20241231" => "20250101"
  */
-export function _getNextKey(category: TypeCategory, key: string) {
+export function getNextKey(category: TypeCategory, key: string) {
   const num = Number(key);
   let year;
   let month = 1;
@@ -29,5 +29,5 @@ export function _getNextKey(category: TypeCategory, key: string) {
       break;
   }
   const date = new Date(year, month - 1, day);
-  return _getKey(category, date);
+  return getKey(category, date);
 }

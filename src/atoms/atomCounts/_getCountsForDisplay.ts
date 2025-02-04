@@ -5,7 +5,7 @@ import { TypeCounts } from "../../types/TypeCounts";
 /**
  * `counts`をhtml表示用の形式に変形する
  */
-export function _getCountsForDisplay(counts: TypeCounts) {
+export function getCountsForDisplay(counts: TypeCounts) {
   return {
     days: getSpans(counts, "days").slice(0, 15),
     weeks: getSpans(counts, "weeks").slice(0, 12),

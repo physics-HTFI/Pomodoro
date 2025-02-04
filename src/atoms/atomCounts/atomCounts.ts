@@ -1,11 +1,11 @@
 import { atom } from "jotai";
-import { _atom } from "./_atomCounts/_atom";
-import { _getCountsForDisplay } from "./_atomCounts/_getCountsForDisplay";
-import { _save } from "./_atomCounts/_save";
-import { _update } from "./_atomCounts/_update";
-import { _atomFileHandle } from "./_atomCounts/_atomFileHandle";
-import { _readCounts } from "./_atomCounts/_readCounts";
-import { _indexedDb } from "./_atomCounts/_indexedDb";
+import { atom0 } from "./_atom0";
+import { getCountsForDisplay } from "./_getCountsForDisplay";
+import { save } from "./_save";
+import { update } from "./_update";
+import { atomFileHandle } from "./_atomFileHandle";
+import { readCounts } from "./_readCounts";
+import { indexedDb } from "./_indexedDb";
 
 /**
  * カウントの値の取得・設定を行う `atom` 群
@@ -15,8 +15,8 @@ export const atomCounts = {
    * カウント値を（html表示用の形式で）取得する `atom`
    */
   getCountsForDisplay: atom((get) => {
-    const counts = get(_atom);
-    return _getCountsForDisplay(counts);
+    const counts = get(atom0);
+    return getCountsForDisplay(counts);
   }),
 
   /**
@@ -24,7 +24,7 @@ export const atomCounts = {
    * ない場合は`undefined`。
    */
   getFileName: atom((get) => {
-    const file = get(_atomFileHandle);
+    const file = get(atomFileHandle);
     return file?.name;
   }),
 
@@ -34,15 +34,15 @@ export const atomCounts = {
    * 読み込みに失敗したら、その後、そのファイルにはアクセスしない。
    */
   setFile: atom(null, async (_get, set, fileHandle?: FileSystemFileHandle) => {
-    await set(_atomFileHandle, undefined);
-    const result = await _readCounts(fileHandle);
+    await set(atomFileHandle, undefined);
+    const result = await readCounts(fileHandle);
     if (result.status === "failed") return;
     // 更新
     if (result.status === "old") {
-      _update(result.counts, 0);
-      set(_atom, result.counts);
+      update(result.counts, 0);
+      set(atom0, result.counts);
     }
-    await set(_atomFileHandle, fileHandle);
+    await set(atomFileHandle, fileHandle);
     // アクセス許可アラートを出す（これがないとカウント値の変更時に出てしまう）
     await fileHandle?.requestPermission({ mode: "readwrite" });
   }),
@@ -51,7 +51,7 @@ export const atomCounts = {
    * IndexedDBに保存されているファイルを取得して`setFile`し直す。
    */
   resetFileFromIndexedDb: atom(null, async (_get, set) => {
-    set(_atomFileHandle, await _indexedDb.fileHandle.get());
+    set(atomFileHandle, await indexedDb.fileHandle.get());
   }),
 
   /**
@@ -60,9 +60,9 @@ export const atomCounts = {
    * 保存も行う。
    */
   update: atom(null, async (get, set, delta: number = 0) => {
-    const counts = get(_atom);
-    _update(counts, delta);
-    set(_atom, { ...counts });
-    await _save(counts, get(_atomFileHandle));
+    const counts = get(atom0);
+    update(counts, delta);
+    set(atom0, { ...counts });
+    await save(counts, get(atomFileHandle));
   }),
 };

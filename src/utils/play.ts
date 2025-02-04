@@ -66,11 +66,3 @@ async function setAudioContextIfNeeded() {
   const arrayBuffer = await response.arrayBuffer();
   audioBuffer ??= await audioContext.decodeAudioData(arrayBuffer);
 }
-
-// 型エラーへの対応
-declare global {
-  interface AudioContext {
-    setSinkId: (id: string) => Promise<unknown>;
-    sinkId: string;
-  }
-}

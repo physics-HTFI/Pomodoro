@@ -3,7 +3,7 @@ import { useCallback, useEffect, useState } from "react";
 import { atomPlayDeviceId } from "../atoms/atomPlayDeviceId";
 import { getPlayDevice, getPlayDevices, setPlayDevice } from "../utils/play";
 import { atomOpenSettingsDialog } from "../atoms/atomOpenSettingsDialog";
-import { atomCounts } from "../atoms/atomCounts";
+import { atomCounts } from "../atoms/atomCounts/atomCounts";
 
 export function useSettingsDialog() {
   const [open, setOpen] = useAtom(atomOpenSettingsDialog);

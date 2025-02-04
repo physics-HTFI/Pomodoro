@@ -1,6 +1,6 @@
 import Dexie, { EntityTable } from "dexie";
 
-export const _indexedDb = {
+export const indexedDb = {
   fileHandle: {
     get: async () => (await db.fileHandles.get(1))?.handle,
 
