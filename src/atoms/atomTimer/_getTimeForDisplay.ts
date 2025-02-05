@@ -1,17 +1,17 @@
 import { TypeTimer } from "../../types/TypeTimer";
 import { CONST } from "./_CONST";
 
-export function getTimeForDisplay({ status, seconds, intervalId }: TypeTimer) {
-  const isRunning = intervalId !== undefined;
+export function getTimeForDisplay({ status, seconds, isRunning }: TypeTimer) {
   const time = getTimeString(seconds);
-  const workProgress = status === "work" ? seconds / CONST.work_sec : 0;
-  const breakProgress = status === "work" ? 1 : seconds / CONST.break_sec;
+  const progress = seconds / CONST.seconds[status];
+  const workProgress = status === "work" ? progress : 0;
+  const breakProgress = status === "break" ? progress : 1;
   return {
-    status,
     time,
+    status,
+    isRunning,
     workProgress,
     breakProgress,
-    isRunning,
   };
 }
 

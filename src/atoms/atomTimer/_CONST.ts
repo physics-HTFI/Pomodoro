@@ -1,4 +1,6 @@
 export const CONST = {
-  work_sec: 25 * 60,
-  break_sec: 5 * 60,
+  seconds: {
+    work: 25 * 60,
+    break: 5 * 60,
+  },
 } as const;

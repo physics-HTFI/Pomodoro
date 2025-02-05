@@ -1,5 +1,5 @@
 import { atom } from "jotai";
-import { atom0 } from "./_atom0";
+import { atomCounts0 } from "./_atomCounts0";
 import { getCountsForDisplay } from "./_getCountsForDisplay";
 import { save } from "./_save";
 import { update } from "./_update";
@@ -15,7 +15,7 @@ export const atomCounts = {
    * カウント値を（html表示用の形式で）取得する `atom`
    */
   getCountsForDisplay: atom((get) => {
-    const counts = get(atom0);
+    const counts = get(atomCounts0);
     return getCountsForDisplay(counts);
   }),
 
@@ -40,7 +40,7 @@ export const atomCounts = {
     // 更新
     if (result.status === "old") {
       update(result.counts, 0);
-      set(atom0, result.counts);
+      set(atomCounts0, result.counts);
     }
     await set(atomFileHandle, fileHandle);
     // アクセス許可アラートを出す（これがないとカウント値の変更時に出てしまう）
@@ -60,9 +60,9 @@ export const atomCounts = {
    * 保存も行う。
    */
   update: atom(null, async (get, set, delta: number = 0) => {
-    const counts = get(atom0);
+    const counts = get(atomCounts0);
     update(counts, delta);
-    set(atom0, { ...counts });
+    set(atomCounts0, { ...counts });
     await save(counts, get(atomFileHandle));
   }),
 };

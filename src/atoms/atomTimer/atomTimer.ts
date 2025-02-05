@@ -1,9 +1,11 @@
 import { atom } from "jotai";
 import { CONST } from "./_CONST";
-import { atom0 } from "./_atom0";
+import { atomTimer0 } from "./_atomTimer0";
 import { atomCounts } from "../atomCounts/atomCounts";
-import { play } from "../../utils/play";
 import { getTimeForDisplay } from "./_getTimeForDisplay";
+import { atomPlay } from "../atomPlay/atomPlay";
+import { atomTicker } from "./_atomTicker";
+import { getTimerDefault as getTimerInit } from "./_getTimerInit";
 
 /**
  * タイマーの取得設定を行う `atom` 群
@@ -13,7 +15,7 @@ export const atomTimer = {
    * タイマーの値を取得する `atom`
    */
   getTimeForDisplay: atom((get) => {
-    const timer = get(atom0);
+    const timer = get(atomTimer0);
     return getTimeForDisplay(timer);
   }),
 
@@ -21,30 +23,28 @@ export const atomTimer = {
    * タイマーを初期状態にする `atom`
    */
   reset: atom(null, (get, set) => {
-    const timer = get(atom0);
-    timer.status = "work";
-    timer.seconds = CONST.work_sec;
-    set(atom0, { ...timer });
-    set(atomTimer.stop);
-  }),
-
-  /**
-   * タイマーの残り時間を`delta`秒だけ変化させる `atom`
-   */
-  skipBy: atom(null, (get, set, delta: number) => {
-    const timer = get(atom0);
-    timer.seconds = Math.max(0, timer.seconds + delta);
-    set(atom0, { ...timer });
+    set(atomCounts.update);
+    set(atomTimer0, getTimerInit());
+    get(atomTicker).stop();
   }),
 
   /**
    * タイマーを停止する `atom`
    */
   stop: atom(null, (get, set) => {
-    const timer = get(atom0);
-    clearInterval(timer.intervalId);
-    timer.intervalId = undefined;
-    set(atom0, { ...timer });
+    set(atomCounts.update);
+    set(atomTimer0, { ...get(atomTimer0), isRunning: false });
+    get(atomTicker).stop();
+  }),
+
+  /**
+   * タイマーの残り時間を`delta`秒だけ変化させる `atom`
+   */
+  skipBy: atom(null, (get, set, delta: number) => {
+    set(atomCounts.update);
+    const timer = get(atomTimer0);
+    const seconds = Math.max(0, timer.seconds + delta);
+    set(atomTimer0, { ...timer, seconds });
   }),
 
   /**
@@ -52,34 +52,32 @@ export const atomTimer = {
    */
   toggle: atom(null, (get, set) => {
     set(atomCounts.update);
-    const timer = get(atom0);
-    const isRunning = timer.intervalId !== undefined;
-    if (isRunning) {
-      if (timer.status === "work") {
-        set(atomTimer.stop);
-      } else {
-        set(atomTimer.reset);
+    const timer = get(atomTimer0);
+    const isWork = timer.status === "work";
+    get(atomTicker).toggle(
+      1000,
+      // onToggleOff
+      () => (isWork ? set(atomTimer.stop) : set(atomTimer.reset)),
+      // onToggleOn
+      () => {
+        if (isWork) set(atomPlay.play);
+        set(atomTimer0, { ...timer, isRunning: true });
+      },
+      // onTick
+      () => {
+        const timer = get(atomTimer0);
+        timer.seconds -= 1;
+        if (timer.seconds <= 0) {
+          timer.status = isWork ? "break" : "work";
+          timer.seconds = CONST.seconds[timer.status];
+          set(atomCounts.update, isWork ? 1 : 0); // カウント値を+1する
+          set(atomPlay.play);
+        }
+        set(atomTimer0, { ...timer });
+        if (timer.seconds === 10) {
+          set(atomPlay.play, 0.0001); // 予め無音で再生しておくと、実際に鳴らしたときに遅延しない（0だと効果なし）
+        }
       }
-      return;
-    }
-    timer.intervalId = setInterval(() => {
-      const timer = get(atom0);
-      timer.seconds -= 1;
-      if (timer.seconds <= 0) {
-        const endWork = timer.status === "work";
-        timer.status = endWork ? "break" : "work";
-        timer.seconds = endWork ? CONST.break_sec : CONST.work_sec;
-        set(atomCounts.update, endWork ? 1 : 0);
-        play();
-      }
-      set(atom0, { ...timer });
-      if (timer.seconds === 10) {
-        play(0.0001); // 予め無音で再生しておくと、実際に鳴らしたときに遅延しない（0だと効果なし）
-      }
-    }, 1000);
-    if (timer.status === "work") {
-      play();
-    }
-    set(atom0, { ...timer });
+    );
   }),
 };

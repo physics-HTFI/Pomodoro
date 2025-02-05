@@ -12,16 +12,29 @@ import {
 } from "@mui/material";
 import { Delete, Folder } from "@mui/icons-material";
 import { useSettingsDialog } from "./useSettingsDialog";
+import { Suspense } from "react";
+import { useAtomValue } from "jotai";
+import { atomOpenSettingsDialog } from "../atoms/atomOpenSettingsDialog";
 
 /**
  * 設定ボタンを押したときに現れる選択ダイアログ
  */
 export function SettingsDialog() {
+  const open = useAtomValue(atomOpenSettingsDialog);
+  if (!open) return null; // ダイアログを開くまでデバイスの取得を行わないようにする（オーディオアクセスを許可するかのダイアログが出るのを防ぐため）
+  return (
+    <Suspense fallback={"Loading... TODO"}>
+      <SettingsDialog0 />
+    </Suspense>
+  );
+}
+
+export function SettingsDialog0() {
   const {
     open,
     fileName,
-    deviceId,
-    devices,
+    devices, // ここがSuspenseを引き起こす
+    selectedIndex,
     selectFile,
     unselectFile,
     handleSelectSpeaker,
@@ -50,8 +63,8 @@ export function SettingsDialog() {
             devices.map((d, i) => (
               <ListItem key={d.deviceId} value={d.deviceId}>
                 <ListItemButton
-                  selected={(!deviceId && i === 0) || deviceId === d.deviceId}
-                  onClick={() => handleSelectSpeaker(d.deviceId)}
+                  selected={selectedIndex === i}
+                  onClick={async () => await handleSelectSpeaker(d.deviceId)}
                 >
                   <ListItemText primary={d.label} />
                 </ListItemButton>

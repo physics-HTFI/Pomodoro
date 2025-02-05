@@ -1,26 +1,16 @@
 import { useAtom, useAtomValue, useSetAtom } from "jotai";
-import { useCallback, useEffect, useState } from "react";
-import { atomPlayDeviceId } from "../atoms/atomPlayDeviceId";
-import { getPlayDevice, getPlayDevices, setPlayDevice } from "../utils/play";
+import { useCallback } from "react";
 import { atomOpenSettingsDialog } from "../atoms/atomOpenSettingsDialog";
 import { atomCounts } from "../atoms/atomCounts/atomCounts";
+import { atomPlay } from "../atoms/atomPlay/atomPlay";
 
 export function useSettingsDialog() {
   const [open, setOpen] = useAtom(atomOpenSettingsDialog);
   const fileName = useAtomValue(atomCounts.getFileName) ?? "";
   const setFile = useSetAtom(atomCounts.setFile);
-  const [deviceId, setDeviceId] = useAtom(atomPlayDeviceId);
-  const [devices, setDevices] = useState<MediaDeviceInfo[]>();
-  useEffect(() => {
-    // デバイスを取得する。
-    // （ページ表示直後にオーディオアクセスを許可するかのダイアログが出るのを防ぐため、ダイアログを表示する時のみ取得する。）
-    if (!open) return;
-    const effect = async () => {
-      setDevices(await getPlayDevices());
-      setDeviceId(await getPlayDevice());
-    };
-    effect();
-  }, [open, setDeviceId]);
+  const setDeviceId = useSetAtom(atomPlay.setDeviceId);
+  const { devices, selectedIndex } = useAtomValue(atomPlay.getDevices);
+
   const handleClose = useCallback(() => setOpen(false), [setOpen]);
   const handleClickToClose = useCallback(
     (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
@@ -30,10 +20,7 @@ export function useSettingsDialog() {
   );
   // スピーカー選択時の処理
   const handleSelectSpeaker = useCallback(
-    (id: string) => {
-      setDeviceId(id);
-      setPlayDevice(id);
-    },
+    async (id: string) => await setDeviceId(id, true),
     [setDeviceId]
   );
 
@@ -62,8 +49,8 @@ export function useSettingsDialog() {
   return {
     open,
     fileName,
-    deviceId,
     devices,
+    selectedIndex,
     selectFile,
     unselectFile,
     handleClose,
