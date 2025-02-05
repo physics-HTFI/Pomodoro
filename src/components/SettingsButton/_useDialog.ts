@@ -1,10 +1,10 @@
 import { useAtom, useAtomValue, useSetAtom } from "jotai";
 import { useCallback } from "react";
-import { atomOpenSettingsDialog } from "../atoms/atomOpenSettingsDialog";
-import { atomCounts } from "../atoms/atomCounts/atomCounts";
-import { atomPlay } from "../atoms/atomPlay/atomPlay";
+import { atomOpenSettingsDialog } from "../../atoms/atomOpenSettingsDialog";
+import { atomCounts } from "../../atoms/atomCounts/atomCounts";
+import { atomPlay } from "../../atoms/atomPlay/atomPlay";
 
-export function useSettingsDialog() {
+export function useDialog() {
   const [open, setOpen] = useAtom(atomOpenSettingsDialog);
   const fileName = useAtomValue(atomCounts.getFileName) ?? "";
   const setFile = useSetAtom(atomCounts.setFile);

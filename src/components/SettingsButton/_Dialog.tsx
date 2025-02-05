@@ -1,5 +1,5 @@
 import {
-  Dialog,
+  Dialog as MuiDialog,
   DialogContent,
   DialogTitle,
   IconButton,
@@ -11,25 +11,26 @@ import {
   TextField,
 } from "@mui/material";
 import { Delete, Folder } from "@mui/icons-material";
-import { useSettingsDialog } from "./useSettingsDialog";
+import { useDialog } from "./_useDialog";
 import { Suspense } from "react";
 import { useAtomValue } from "jotai";
-import { atomOpenSettingsDialog } from "../atoms/atomOpenSettingsDialog";
+import { atomOpenSettingsDialog } from "../../atoms/atomOpenSettingsDialog";
+import { Loading } from "./_Loading";
 
 /**
  * 設定ボタンを押したときに現れる選択ダイアログ
  */
-export function SettingsDialog() {
+export function Dialog() {
   const open = useAtomValue(atomOpenSettingsDialog);
   if (!open) return null; // ダイアログを開くまでデバイスの取得を行わないようにする（オーディオアクセスを許可するかのダイアログが出るのを防ぐため）
   return (
-    <Suspense fallback={"Loading... TODO"}>
+    <Suspense fallback={<Loading />}>
       <SettingsDialog0 />
     </Suspense>
   );
 }
 
-export function SettingsDialog0() {
+function SettingsDialog0() {
   const {
     open,
     fileName,
@@ -40,10 +41,10 @@ export function SettingsDialog0() {
     handleSelectSpeaker,
     handleClickToClose,
     handleClose,
-  } = useSettingsDialog();
+  } = useDialog();
 
   return (
-    <Dialog onClose={handleClose} onClick={handleClickToClose} open={open}>
+    <MuiDialog onClose={handleClose} onClick={handleClickToClose} open={open}>
       <DialogTitle fontSize="medium">保存先ファイルの選択</DialogTitle>
       <DialogContent>
         <Stack direction="row" px={4}>
@@ -72,6 +73,6 @@ export function SettingsDialog0() {
             ))}
         </List>
       </DialogContent>
-    </Dialog>
+    </MuiDialog>
   );
 }
