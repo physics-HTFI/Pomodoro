@@ -1,12 +1,12 @@
-import { TypeCategory } from "../../types/TypeCategory";
-import { TypeCounts } from "../../types/TypeCounts";
+import { TypeCategory } from "../../../types/TypeCategory";
+import { TypeCounts } from "../../../types/TypeCounts";
 
 /**
  * ファイルからカウント値を取得する。
  * 新規ファイルの場合は `{status: "new"}`。
  * 読み込み失敗時は `{status: "failed"}`。
  */
-export async function readCountsAsync(
+export async function readAsync(
   fileHandle?: FileSystemFileHandle
 ): Promise<
   { status: "failed" | "new" } | { status: "old"; counts: TypeCounts }

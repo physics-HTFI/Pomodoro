@@ -8,6 +8,7 @@ import { atomTimer } from "../../atoms/atomTimer/atomTimer";
  */
 export function useCounter() {
   const counts = useAtomValue(atomCounts.getCountsForDisplay);
+  const hasFile = useAtomValue(atomCounts.getFileName);
   const timerReset = useSetAtom(atomTimer.reset);
   const handleClick = useCallback(
     (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
@@ -19,6 +20,7 @@ export function useCounter() {
 
   return {
     counts,
+    hasFile,
     handleClick,
   };
 }

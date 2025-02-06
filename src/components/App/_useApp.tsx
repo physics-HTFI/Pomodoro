@@ -4,7 +4,6 @@ import { atomCounts } from "../../atoms/atomCounts/atomCounts";
 import { atomTimer } from "../../atoms/atomTimer/atomTimer";
 
 export function useApp() {
-  const resetFileAsync = useSetAtom(atomCounts.resetFileFromIndexedDbAsync);
   const updateCountsAsync = useSetAtom(atomCounts.updateAsync);
   const skipTimer = useSetAtom(atomTimer.skipBy);
   const resetTimer = useSetAtom(atomTimer.reset);
@@ -20,12 +19,11 @@ export function useApp() {
   const toggleTimer = useSetAtom(atomTimer.toggle);
   useEffect(() => {
     const effect = async () => {
-      await resetFileAsync();
       await updateCountsAsync();
       resetTimer();
     };
     effect();
-  }, [updateCountsAsync, resetTimer, resetFileAsync]);
+  }, [updateCountsAsync, resetTimer]);
 
   return { handleKeyDown, toggleTimer };
 }

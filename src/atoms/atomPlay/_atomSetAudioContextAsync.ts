@@ -3,10 +3,10 @@ import { atomAudioBuffer } from "./_atomAudioBuffer";
 import { atomAudioContext } from "./_atomAudioContext";
 
 /**
- * `AudioContext`を生成する。
+ * `AudioContext`を（まだ生成されていなければ）生成する。
  * （ユーザーがクリックする前に生成するとコンソールに警告が出るので、生成を遅らせるため。）
  */
-export const atomSetAudioContextIfNeededAsync = atom(null, async (get, set) => {
+export const atomSetAudioContextAsync = atom(null, async (get, set) => {
   let audioContext = get(atomAudioContext);
   const audioBuffer = get(atomAudioBuffer);
   if (!audioContext) {

@@ -1,4 +1,4 @@
-import { TypeCounts } from "../../types/TypeCounts";
+import { TypeCounts } from "../../../types/TypeCounts";
 
 export async function saveAsync(
   counts: TypeCounts,
