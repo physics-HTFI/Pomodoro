@@ -10,8 +10,8 @@ export function usePipPopupButton() {
       height: 200,
       disallowReturnToOpener: true,
     });
-    copyCss(document, pip.document);
     setPipWindow(pip);
+    pip.document.body.style.margin = "0";
     pip.addEventListener("unload", () => {
       setPipWindow(undefined);
     });
@@ -22,17 +22,4 @@ export function usePipPopupButton() {
     hidden,
     handleClick,
   };
-}
-
-/**
- * cssをPiPにコピーする
- */
-function copyCss(from: Document, to: Document) {
-  [...from.styleSheets].forEach((styleSheet) => {
-    const style = document.createElement("style");
-    style.textContent = [...styleSheet.cssRules]
-      .map((rule) => rule.cssText)
-      .join("");
-    to.head.appendChild(style);
-  });
 }
