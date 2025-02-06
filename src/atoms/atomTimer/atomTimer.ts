@@ -23,7 +23,7 @@ export const atomTimer = {
    * タイマーを初期状態にする `atom`
    */
   reset: atom(null, (get, set) => {
-    set(atomCounts.update);
+    set(atomCounts.updateAsync);
     set(atomTimer0, getTimerInit());
     get(atomTicker).stop();
   }),
@@ -32,7 +32,7 @@ export const atomTimer = {
    * タイマーを停止する `atom`
    */
   stop: atom(null, (get, set) => {
-    set(atomCounts.update);
+    set(atomCounts.updateAsync);
     set(atomTimer0, { ...get(atomTimer0), isRunning: false });
     get(atomTicker).stop();
   }),
@@ -41,7 +41,7 @@ export const atomTimer = {
    * タイマーの残り時間を`delta`秒だけ変化させる `atom`
    */
   skipBy: atom(null, (get, set, delta: number) => {
-    set(atomCounts.update);
+    set(atomCounts.updateAsync);
     const timer = get(atomTimer0);
     const seconds = Math.max(0, timer.seconds + delta);
     set(atomTimer0, { ...timer, seconds });
@@ -51,7 +51,7 @@ export const atomTimer = {
    * タイマーの開始／停止を切り替える `atom`
    */
   toggle: atom(null, (get, set) => {
-    set(atomCounts.update);
+    set(atomCounts.updateAsync);
     const timer = get(atomTimer0);
     const isWork = timer.status === "work";
     get(atomTicker).toggle(
@@ -60,7 +60,7 @@ export const atomTimer = {
       () => (isWork ? set(atomTimer.stop) : set(atomTimer.reset)),
       // onToggleOn
       () => {
-        if (isWork) set(atomPlay.play);
+        if (isWork) set(atomPlay.playAsync);
         set(atomTimer0, { ...timer, isRunning: true });
       },
       // onTick
@@ -70,12 +70,12 @@ export const atomTimer = {
         if (timer.seconds <= 0) {
           timer.status = isWork ? "break" : "work";
           timer.seconds = CONST.seconds[timer.status];
-          set(atomCounts.update, isWork ? 1 : 0); // カウント値を+1する
-          set(atomPlay.play);
+          set(atomCounts.updateAsync, isWork ? 1 : 0); // カウント値を+1する
+          set(atomPlay.playAsync);
         }
         set(atomTimer0, { ...timer });
         if (timer.seconds === 10) {
-          set(atomPlay.play, 0.0001); // 予め無音で再生しておくと、実際に鳴らしたときに遅延しない（0だと効果なし）
+          set(atomPlay.playAsync, 0.0001); // 予め無音で再生しておくと、実際に鳴らしたときに遅延しない（0だと効果なし）
         }
       }
     );

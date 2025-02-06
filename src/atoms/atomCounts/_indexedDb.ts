@@ -2,12 +2,12 @@ import Dexie, { EntityTable } from "dexie";
 
 export const indexedDb = {
   fileHandle: {
-    get: async () => (await db.fileHandles.get(1))?.handle,
+    getAsync: async () => (await db.fileHandles.get(1))?.handle,
 
-    set: async (handle: FileSystemFileHandle) =>
+    setAsync: async (handle: FileSystemFileHandle) =>
       await db.fileHandles.put({ id: 1, handle }),
 
-    delete: async () => await db.fileHandles.delete(1),
+    deleteAsync: async () => await db.fileHandles.delete(1),
   },
 };
 

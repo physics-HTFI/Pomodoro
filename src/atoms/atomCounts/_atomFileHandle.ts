@@ -5,9 +5,9 @@ export const atomFileHandle = atom(
   (get) => get(__atom),
   async (_get, set, fileHandle?: FileSystemFileHandle) => {
     if (fileHandle) {
-      await indexedDb.fileHandle.set(fileHandle);
+      await indexedDb.fileHandle.setAsync(fileHandle);
     } else {
-      await indexedDb.fileHandle.delete();
+      await indexedDb.fileHandle.deleteAsync();
     }
     set(__atom, fileHandle);
   }

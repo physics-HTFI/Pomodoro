@@ -7,9 +7,9 @@ import { atomPlay } from "../../atoms/atomPlay/atomPlay";
 export function useDialog() {
   const [open, setOpen] = useAtom(atomOpenSettingsDialog);
   const fileName = useAtomValue(atomCounts.getFileName) ?? "";
-  const setFile = useSetAtom(atomCounts.setFile);
-  const setDeviceId = useSetAtom(atomPlay.setDeviceId);
-  const { devices, selectedIndex } = useAtomValue(atomPlay.getDevices);
+  const setFileAsync = useSetAtom(atomCounts.setFileAsync);
+  const setDeviceIdAsync = useSetAtom(atomPlay.setDeviceIdAsync);
+  const { devices, selectedIndex } = useAtomValue(atomPlay.getDevicesAsync);
 
   const handleClose = useCallback(() => setOpen(false), [setOpen]);
   const handleClickToClose = useCallback(
@@ -20,8 +20,8 @@ export function useDialog() {
   );
   // スピーカー選択時の処理
   const handleSelectSpeaker = useCallback(
-    async (id: string) => await setDeviceId(id, true),
-    [setDeviceId]
+    async (id: string) => await setDeviceIdAsync(id, true),
+    [setDeviceIdAsync]
   );
 
   // ファイル選択ダイアログからファイルを選択する
@@ -36,14 +36,14 @@ export function useDialog() {
           },
         ],
       });
-      await setFile(fileHandle);
+      await setFileAsync(fileHandle);
     } catch {
       /* */
     }
-  }, [setFile]);
+  }, [setFileAsync]);
   const unselectFile = useCallback(
-    async () => await setFile(undefined),
-    [setFile]
+    async () => await setFileAsync(undefined),
+    [setFileAsync]
   );
 
   return {

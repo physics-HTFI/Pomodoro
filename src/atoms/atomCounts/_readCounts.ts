@@ -6,7 +6,7 @@ import { TypeCounts } from "../../types/TypeCounts";
  * 新規ファイルの場合は `{status: "new"}`。
  * 読み込み失敗時は `{status: "failed"}`。
  */
-export async function readCounts(
+export async function readCountsAsync(
   fileHandle?: FileSystemFileHandle
 ): Promise<
   { status: "failed" | "new" } | { status: "old"; counts: TypeCounts }

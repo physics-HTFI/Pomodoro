@@ -1,10 +1,10 @@
 import { atom } from "jotai";
 import { atomCounts0 } from "./_atomCounts0";
 import { getCountsForDisplay } from "./_getCountsForDisplay";
-import { save } from "./_save";
+import { saveAsync } from "./_save";
 import { update } from "./_update";
 import { atomFileHandle } from "./_atomFileHandle";
-import { readCounts } from "./_readCounts";
+import { readCountsAsync } from "./_readCounts";
 import { indexedDb } from "./_indexedDb";
 
 /**
@@ -33,25 +33,29 @@ export const atomCounts = {
    * その後、カウント値が変更されたら、そのファイルに上書きする。
    * 読み込みに失敗したら、その後、そのファイルにはアクセスしない。
    */
-  setFile: atom(null, async (_get, set, fileHandle?: FileSystemFileHandle) => {
-    await set(atomFileHandle, undefined);
-    const result = await readCounts(fileHandle);
-    if (result.status === "failed") return;
-    // 更新
-    if (result.status === "old") {
-      update(result.counts, 0);
-      set(atomCounts0, result.counts);
+  setFileAsync: atom(
+    null,
+    async (_get, set, fileHandle?: FileSystemFileHandle) => {
+      await set(atomFileHandle, undefined);
+      const result = await readCountsAsync(fileHandle);
+      if (result.status === "failed") return;
+      // 更新
+      if (result.status === "old") {
+        update(result.counts, 0);
+        set(atomCounts0, result.counts);
+      }
+      await set(atomFileHandle, fileHandle);
+      // アクセス許可アラートを出す（これがないとカウント値の変更時に出てしまう）
+      await fileHandle?.requestPermission({ mode: "readwrite" });
     }
-    await set(atomFileHandle, fileHandle);
-    // アクセス許可アラートを出す（これがないとカウント値の変更時に出てしまう）
-    await fileHandle?.requestPermission({ mode: "readwrite" });
-  }),
+  ),
 
   /**
    * IndexedDBに保存されているファイルを取得して`setFile`し直す。
+   * （初回Countsにアクセスする際に設定できれば良いのだが、getterの中ではsetやawaitが出来ないので、明示的に読むようにしている。）
    */
-  resetFileFromIndexedDb: atom(null, async (_get, set) => {
-    set(atomFileHandle, await indexedDb.fileHandle.get());
+  resetFileFromIndexedDbAsync: atom(null, async (_get, set) => {
+    set(atomFileHandle, await indexedDb.fileHandle.getAsync());
   }),
 
   /**
@@ -59,10 +63,10 @@ export const atomCounts = {
    * また、今日のカウント値を `delta` だけ変更する。
    * 保存も行う。
    */
-  update: atom(null, async (get, set, delta: number = 0) => {
+  updateAsync: atom(null, async (get, set, delta: number = 0) => {
     const counts = get(atomCounts0);
     update(counts, delta);
     set(atomCounts0, { ...counts });
-    await save(counts, get(atomFileHandle));
+    await saveAsync(counts, get(atomFileHandle));
   }),
 };
