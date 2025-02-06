@@ -1,10 +1,10 @@
 import { Box, Stack } from "@mui/material";
 import { Svg } from "../Svg/Svg";
-import { PipPopupButton } from "../PipPopupButton";
+import { PipPopupButton } from "../PipButton/PipPopupButton";
 import { Counter } from "../Counter/Counter";
-import { PipPortal } from "../PipPortal";
 import { SettingsButton } from "../SettingsButton/SettingsButton";
 import { useApp } from "./_useApp";
+import { PipPortal } from "../PipPortal/PipPortal";
 
 export function App() {
   const { handleKeyDown, toggleTimer } = useApp();

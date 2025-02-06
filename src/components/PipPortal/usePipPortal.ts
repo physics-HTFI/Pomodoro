@@ -1,5 +1,5 @@
 import { useAtomValue } from "jotai";
-import { atomPipWindow } from "../atoms/atomPipWindow";
+import { atomPipWindow } from "../../atoms/atomPipWindow";
 
 export function usePipPortal() {
   const pip = useAtomValue(atomPipWindow);

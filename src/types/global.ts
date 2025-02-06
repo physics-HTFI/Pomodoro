@@ -1,5 +1,12 @@
 // JavaScriptの試験的な機能を使っているので、それらの型を設定しておく。
 declare global {
+  interface Window {
+    documentPictureInPicture: {
+      requestWindow: (options?: unknown) => Promise<Window>;
+    };
+    // https://developer.mozilla.org/en-US/docs/Web/API/DocumentPictureInPicture
+  }
+
   interface FileSystemFileHandle {
     requestPermission: (options?: {
       mode?: "read" | "write" | "readwrite";
