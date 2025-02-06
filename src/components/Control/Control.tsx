@@ -1,6 +1,4 @@
-import { IconButton, Stack } from "@mui/material";
-import { useAtomValue } from "jotai";
-import { atomPipWindow } from "../../atoms/atomPipWindow";
+import { Stack } from "@mui/material";
 import {
   HighlightOff,
   KeyboardDoubleArrowDown,
@@ -8,36 +6,28 @@ import {
   KeyboardDoubleArrowRight,
   KeyboardDoubleArrowUp,
 } from "@mui/icons-material";
+import { Icon } from "./_Icon";
+import { useControl } from "./_useControl";
 
 export function Control() {
-  const hasPip = useAtomValue(atomPipWindow) !== undefined;
+  const { clickCenter, clickDown, clickLeft, clickRight, clickUp, scale } =
+    useControl();
 
-  const transform = hasPip ? "scale(0.5)" : undefined;
   return (
     <Stack
       alignItems="center"
       alignSelf="center"
       sx={{
-        transform,
+        transform: `scale(${scale})`,
       }}
     >
-      <IconButton sx={{ color: "white" }}>
-        <KeyboardDoubleArrowUp />
-      </IconButton>
+      <Icon icon={<KeyboardDoubleArrowUp />} onClick={clickUp} />
       <Stack direction="row">
-        <IconButton sx={{ color: "white" }}>
-          <KeyboardDoubleArrowLeft />
-        </IconButton>
-        <IconButton sx={{ color: "white" }}>
-          <HighlightOff />
-        </IconButton>
-        <IconButton sx={{ color: "white" }}>
-          <KeyboardDoubleArrowRight />
-        </IconButton>
+        <Icon icon={<KeyboardDoubleArrowLeft />} onClick={clickLeft} />
+        <Icon icon={<HighlightOff />} onClick={clickCenter} />
+        <Icon icon={<KeyboardDoubleArrowRight />} onClick={clickRight} />
       </Stack>
-      <IconButton sx={{ color: "white" }}>
-        <KeyboardDoubleArrowDown />
-      </IconButton>
+      <Icon icon={<KeyboardDoubleArrowDown />} onClick={clickDown} />
     </Stack>
   );
 }

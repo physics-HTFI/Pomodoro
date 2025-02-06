@@ -7,7 +7,7 @@ import { useApp } from "./_useApp";
 import { PipPortal } from "../PipPortal/PipPortal";
 
 export function App() {
-  const { handleKeyDown, toggleTimer } = useApp();
+  const { handleClick } = useApp();
 
   return (
     <PipPortal>
@@ -22,9 +22,7 @@ export function App() {
           userSelect: "none",
           flexDirection: "column",
         }}
-        tabIndex={-1} // これがないとonKeyDownが発火しない
-        onKeyDown={handleKeyDown}
-        onClick={toggleTimer}
+        onClick={handleClick}
       >
         <Svg />
         <Counter />
