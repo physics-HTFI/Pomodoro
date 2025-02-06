@@ -1,7 +1,7 @@
 import { Box, SxProps } from "@mui/material";
 import { TypeClassName } from "../../types/TypeClassName";
 
-export function CountsBox({
+export function Category({
   sx,
   countsWithClassName,
 }: {
