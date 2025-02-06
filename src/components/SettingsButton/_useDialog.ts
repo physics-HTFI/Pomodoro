@@ -12,12 +12,6 @@ export function useDialog() {
   const { devices, selectedIndex } = useAtomValue(atomPlay.getDevicesAsync);
 
   const handleClose = useCallback(() => setOpen(false), [setOpen]);
-  const handleClickToClose = useCallback(
-    (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-      e.stopPropagation();
-    },
-    []
-  );
   // スピーカー選択時の処理
   const handleSelectSpeaker = useCallback(
     async (id: string) => await setDeviceIdAsync(id, true),
@@ -53,7 +47,6 @@ export function useDialog() {
     selectFile,
     unselectFile,
     handleClose,
-    handleClickToClose,
     handleSelectSpeaker,
   };
 }

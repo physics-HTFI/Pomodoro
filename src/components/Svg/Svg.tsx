@@ -14,6 +14,7 @@ export function Svg() {
 
   return (
     <svg
+      id="svg"
       viewBox="-1 -1 2 2"
       style={{
         width: "100svmin",

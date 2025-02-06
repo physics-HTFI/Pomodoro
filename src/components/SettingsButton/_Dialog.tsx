@@ -38,12 +38,11 @@ function SettingsDialog0() {
     selectFile,
     unselectFile,
     handleSelectSpeaker,
-    handleClickToClose,
     handleClose,
   } = useDialog();
 
   return (
-    <MuiDialog onClose={handleClose} onClick={handleClickToClose} open>
+    <MuiDialog onClose={handleClose} open>
       <DialogTitle fontSize="medium">保存先ファイルの選択</DialogTitle>
       <DialogContent>
         <Stack direction="row" px={4}>

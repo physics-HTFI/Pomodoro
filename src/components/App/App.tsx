@@ -12,7 +12,7 @@ export function App() {
   return (
     <PipPortal>
       <Box
-        id="pomodoro"
+        id="main"
         sx={{
           background: "#202124",
           display: "flex",

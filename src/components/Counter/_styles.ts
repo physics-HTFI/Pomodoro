@@ -14,7 +14,7 @@ export const styles: Record<"stack" | TypeCategory, SxProps> = {
     px: 1,
     py: 0.5,
     // テキストのスタイル
-    "& span:first-of-type": {
+    "& > div:first-of-type span:first-of-type": {
       marginLeft: 0,
       fontSize: "1.2em",
     },

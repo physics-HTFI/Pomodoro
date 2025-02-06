@@ -2,15 +2,16 @@ import { Box, Stack } from "@mui/material";
 import { useCounter } from "./_useCounter";
 import { styles } from "./_styles";
 import { CountsBox } from "./_CountsBox";
+import { Control } from "../Control/Control";
 
 /**
  * カウント値を表示するコンポーネント
  */
 export function Counter() {
-  const { counts, hasFile, handleClick } = useCounter();
+  const { counts, hasFile } = useCounter();
   if (!counts) return null;
   return (
-    <Stack sx={styles.stack} onClick={handleClick}>
+    <Stack sx={styles.stack}>
       <CountsBox sx={styles.days} countsWithClassName={counts.days} />
       <CountsBox sx={styles.weeks} countsWithClassName={counts.weeks} />
       <CountsBox sx={styles.months} countsWithClassName={counts.months} />
@@ -18,6 +19,7 @@ export function Counter() {
       {!hasFile && (
         <Box sx={{ alignSelf: "center" }}>ファイルが設定されていません</Box>
       )}
+      <Control />
     </Stack>
   );
 }
