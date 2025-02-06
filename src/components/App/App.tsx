@@ -20,7 +20,7 @@ export function App() {
 
   return (
     <PipPortal>
-      <div ref={setRef} />
+      <style ref={setRef} />
       {!!ref && (
         <CacheProvider value={cache}>
           <Box
