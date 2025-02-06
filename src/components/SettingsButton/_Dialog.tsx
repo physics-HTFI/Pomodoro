@@ -32,7 +32,6 @@ export function Dialog() {
 
 function SettingsDialog0() {
   const {
-    open,
     fileName,
     devices, // ここがSuspenseを引き起こす
     selectedIndex,
@@ -44,7 +43,7 @@ function SettingsDialog0() {
   } = useDialog();
 
   return (
-    <MuiDialog onClose={handleClose} onClick={handleClickToClose} open={open}>
+    <MuiDialog onClose={handleClose} onClick={handleClickToClose} open>
       <DialogTitle fontSize="medium">保存先ファイルの選択</DialogTitle>
       <DialogContent>
         <Stack direction="row" px={4}>
