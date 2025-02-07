@@ -17,16 +17,13 @@ export function Control() {
   return (
     <Box
       sx={{
-        "&:hover > svg": { display: "none" },
+        "&:hover > button": { display: "none" },
         "&:not(:hover) > div": {
           display: "none",
         },
       }}
     >
-      <ControlCamera
-        sx={{ display: "block", color: "white" }}
-        fontSize={fontSize}
-      />
+      <Icon size={fontSize} icon={<ControlCamera fontSize="inherit" />} />
       <Stack
         alignItems="center"
         alignSelf="center"
@@ -34,29 +31,29 @@ export function Control() {
       >
         <Icon
           tooltip="カウント値 +1"
-          icon={<KeyboardDoubleArrowUp fontSize="small" />}
+          icon={<KeyboardDoubleArrowUp fontSize="inherit" />}
           onClick={clickUp}
         />
         <Stack direction="row">
           <Icon
             tooltip="残り時間 +1分"
-            icon={<KeyboardDoubleArrowLeft fontSize="small" />}
+            icon={<KeyboardDoubleArrowLeft fontSize="inherit" />}
             onClick={clickLeft}
           />
           <Icon
             tooltip="タイマーリセット"
-            icon={<Cancel fontSize="small" />}
+            icon={<Cancel fontSize="inherit" />}
             onClick={clickCenter}
           />
           <Icon
             tooltip="残り時間 -1分"
-            icon={<KeyboardDoubleArrowRight fontSize="small" />}
+            icon={<KeyboardDoubleArrowRight fontSize="inherit" />}
             onClick={clickRight}
           />
         </Stack>
         <Icon
           tooltip="カウント値 -1"
-          icon={<KeyboardDoubleArrowDown fontSize="small" />}
+          icon={<KeyboardDoubleArrowDown fontSize="inherit" />}
           onClick={clickDown}
         />
       </Stack>

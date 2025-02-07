@@ -8,12 +8,12 @@ export function Category({
   sx,
   counts: countsWithClassName,
 }: {
-  tooltip: string;
+  tooltip?: string;
   sx?: SxProps;
   counts: { count: string; className?: TypeClassName }[];
 }) {
   const isPip = useAtomValue(atomPipWindow) !== undefined; // ツールチップは<body>の末尾に追加されるのでピクチャインピクチャには表示できない
-  if (isPip) tooltip = "";
+  if (isPip) tooltip = undefined;
   return (
     <Tooltip title={tooltip} disableInteractive placement="bottom" followCursor>
       <Box sx={sx}>
