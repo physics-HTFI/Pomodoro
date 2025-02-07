@@ -7,16 +7,18 @@ import { Settings } from "@mui/icons-material";
  * ファイルとスピーカーを設定するボタン
  */
 export function SettingsButton() {
-  const { hidden, handleClick } = useSettingsButton();
+  const { isPip, open, handleClick } = useSettingsButton();
 
-  if (hidden) return null;
+  if (isPip) return null;
   return (
     <>
-      <Tooltip title="ファイルと音声の出力先を設定します">
-        <IconButton size="large" onClick={handleClick}>
-          <Settings fontSize="inherit" />
-        </IconButton>
-      </Tooltip>
+      {!open && ( // 設定ダイアログを表示したときに一瞬左上にツールチップが残るのを防ぐ
+        <Tooltip title="ファイルと音声の出力先を設定します">
+          <IconButton size="large" onClick={handleClick}>
+            <Settings fontSize="inherit" />
+          </IconButton>
+        </Tooltip>
+      )}
       <Dialog />
     </>
   );
