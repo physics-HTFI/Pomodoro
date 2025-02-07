@@ -1,6 +1,6 @@
 import { Stack } from "@mui/material";
 import {
-  HighlightOff,
+  Cancel,
   KeyboardDoubleArrowDown,
   KeyboardDoubleArrowLeft,
   KeyboardDoubleArrowRight,
@@ -18,7 +18,7 @@ export function Control() {
       <Icon icon={<KeyboardDoubleArrowUp />} onClick={clickUp} />
       <Stack direction="row">
         <Icon icon={<KeyboardDoubleArrowLeft />} onClick={clickLeft} />
-        <Icon icon={<HighlightOff />} onClick={clickCenter} />
+        <Icon icon={<Cancel />} onClick={clickCenter} />
         <Icon icon={<KeyboardDoubleArrowRight />} onClick={clickRight} />
       </Stack>
       <Icon icon={<KeyboardDoubleArrowDown />} onClick={clickDown} />

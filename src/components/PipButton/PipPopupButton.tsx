@@ -1,5 +1,5 @@
 import { Button } from "@mui/material";
-import { usePipPopupButton } from "./usePipPopupButton";
+import { usePipPopupButton } from "./_usePipPopupButton";
 
 /**
  * ピクチャインピクチャのポップアップ用ボタン
