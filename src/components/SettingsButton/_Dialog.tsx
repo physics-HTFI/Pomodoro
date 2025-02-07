@@ -43,7 +43,7 @@ function SettingsDialog0() {
 
   return (
     <MuiDialog onClose={handleClose} open>
-      <DialogTitle fontSize="medium">保存先ファイルの選択</DialogTitle>
+      <DialogTitle fontSize="medium">バックアップファイルの選択</DialogTitle>
       <DialogContent>
         <Stack direction="row" px={4}>
           <TextField variant="standard" value={fileName} sx={{ width: 300 }} />
