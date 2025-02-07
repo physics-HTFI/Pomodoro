@@ -1,5 +1,7 @@
 import { Box, SxProps, Tooltip } from "@mui/material";
 import { TypeClassName } from "../../types/TypeClassName";
+import { useAtomValue } from "jotai";
+import { atomPipWindow } from "../../atoms/atomPipWindow";
 
 export function Category({
   tooltip,
@@ -10,6 +12,8 @@ export function Category({
   sx?: SxProps;
   counts: { count: string; className?: TypeClassName }[];
 }) {
+  const isPip = useAtomValue(atomPipWindow) !== undefined; // ツールチップは<body>の末尾に追加されるのでピクチャインピクチャには表示できない
+  if (isPip) tooltip = "";
   return (
     <Tooltip title={tooltip} disableInteractive placement="bottom" followCursor>
       <Box sx={sx}>
