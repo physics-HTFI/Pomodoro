@@ -52,25 +52,24 @@ export const atomTimer = {
    */
   toggle: atom(null, (get, set) => {
     set(atomCounts.updateAsync);
-    const timer = get(atomTimer0);
-    const isWork = timer.status === "work";
+    const isWork = () => get(atomTimer0).status === "work";
     get(atomTicker).toggle(
       1000,
       // onToggleOff
-      () => (isWork ? set(atomTimer.stop) : set(atomTimer.reset)),
+      () => (isWork() ? set(atomTimer.stop) : set(atomTimer.reset)),
       // onToggleOn
       () => {
-        if (isWork) set(atomPlay.playAsync);
-        set(atomTimer0, { ...timer, isRunning: true });
+        if (isWork()) set(atomPlay.playAsync);
+        set(atomTimer0, { ...get(atomTimer0), isRunning: true });
       },
       // onTick
       () => {
         const timer = get(atomTimer0);
         timer.seconds -= 1;
         if (timer.seconds <= 0) {
-          timer.status = isWork ? "break" : "work";
+          timer.status = isWork() ? "break" : "work";
           timer.seconds = CONST.seconds[timer.status];
-          set(atomCounts.updateAsync, isWork ? 1 : 0); // カウント値を+1する
+          set(atomCounts.updateAsync, isWork() ? 1 : 0); // カウント値を+1する
           set(atomPlay.playAsync);
         }
         set(atomTimer0, { ...timer });
