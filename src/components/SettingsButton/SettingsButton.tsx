@@ -13,7 +13,7 @@ export function SettingsButton() {
   return (
     <>
       <IconButton size="large" onClick={handleClick}>
-        <Settings fontSize="inherit" sx={{ color: "white" }} />
+        <Settings fontSize="inherit" />
       </IconButton>
       <Dialog />
     </>

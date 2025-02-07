@@ -11,7 +11,7 @@ export function PipPopupButton() {
   if (hidden) return null;
   return (
     <IconButton size="large" onClick={handleClick}>
-      <Launch fontSize="inherit" sx={{ color: "white" }} />
+      <Launch fontSize="inherit" />
     </IconButton>
   );
 }

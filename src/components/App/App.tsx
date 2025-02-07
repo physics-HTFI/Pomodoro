@@ -1,4 +1,4 @@
-import { Box, Stack } from "@mui/material";
+import { Box, createTheme, Stack, ThemeProvider } from "@mui/material";
 import { Svg } from "../Svg/Svg";
 import { PipPopupButton } from "../PipButton/PipPopupButton";
 import { Counter } from "../Counter/Counter";
@@ -12,36 +12,47 @@ export function App() {
 
   return (
     <PipPortal>
-      <Box
-        id="main"
-        sx={{
-          background: "#202124",
-          display: "flex",
-          height: "100svh",
-          justifyContent: "center",
-          alignItems: "center",
-          userSelect: "none",
-          flexDirection: "column",
-        }}
-        onClick={handleClick}
-      >
-        <Svg />
-        <Counter />
-        <Stack
-          direction="row"
+      <ThemeProvider theme={darkTheme}>
+        <Box
+          id="main"
           sx={{
-            position: "fixed",
-            top: 4,
-            right: 4,
+            background: "#202124",
+            display: "flex",
+            height: "100svh",
+            justifyContent: "center",
             alignItems: "center",
-            //"div:not(:hover) > &": { display: "none" },
+            userSelect: "none",
+            flexDirection: "column",
           }}
+          onClick={handleClick}
         >
-          <Control />
-          <SettingsButton />
-          <PipPopupButton />
-        </Stack>
-      </Box>
+          <Svg />
+          <Counter />
+          <Stack
+            direction="row"
+            sx={{
+              position: "fixed",
+              top: 4,
+              right: 4,
+              alignItems: "center",
+              "div:not(:hover) > &": { display: "none" },
+            }}
+          >
+            <Control />
+            <SettingsButton />
+            <PipPopupButton />
+          </Stack>
+        </Box>
+      </ThemeProvider>
     </PipPortal>
   );
 }
+
+/**
+ * ボタンにマウスホバーしたときの反応が分かりやすいようにダークモードにする
+ */
+const darkTheme = createTheme({
+  palette: {
+    mode: "dark",
+  },
+});

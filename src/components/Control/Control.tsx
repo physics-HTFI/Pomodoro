@@ -11,21 +11,21 @@ import { Icon } from "./_Icon";
 import { useControl } from "./_useControl";
 
 export function Control() {
-  const { clickCenter, clickDown, clickLeft, clickRight, clickUp } =
+  const { fontSize, clickCenter, clickDown, clickLeft, clickRight, clickUp } =
     useControl();
 
   return (
     <Box
       sx={{
-        "&:hover > :first-child": { display: "none" },
-        "&:not(:hover) > :not(:first-child)": {
+        "&:hover > svg": { display: "none" },
+        "&:not(:hover) > div": {
           display: "none",
         },
       }}
     >
       <ControlCamera
         sx={{ display: "block", color: "white" }}
-        fontSize="large"
+        fontSize={fontSize}
       />
       <Stack
         alignItems="center"

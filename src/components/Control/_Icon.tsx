@@ -8,7 +8,7 @@ export function Icon({
   onClick: () => void;
 }) {
   return (
-    <IconButton sx={{ color: "white" }} size="small" onClick={onClick}>
+    <IconButton size="small" onClick={onClick}>
       {icon}
     </IconButton>
   );
