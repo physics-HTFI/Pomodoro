@@ -1,5 +1,6 @@
-import { Button } from "@mui/material";
+import { IconButton } from "@mui/material";
 import { usePipPopupButton } from "./_usePipPopupButton";
+import { Launch } from "@mui/icons-material";
 
 /**
  * ピクチャインピクチャのポップアップ用ボタン
@@ -9,12 +10,8 @@ export function PipPopupButton() {
 
   if (hidden) return null;
   return (
-    <Button
-      size="small"
-      onClick={handleClick}
-      sx={{ fontSize: "6svmin", minWidth: 0, p: 0 }}
-    >
-      🪟
-    </Button>
+    <IconButton size="large" onClick={handleClick}>
+      <Launch fontSize="inherit" sx={{ color: "white" }} />
+    </IconButton>
   );
 }

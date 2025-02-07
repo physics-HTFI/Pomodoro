@@ -1,6 +1,7 @@
-import { Button } from "@mui/material";
+import { IconButton } from "@mui/material";
 import { useSettingsButton } from "./_useSettingsButton";
 import { Dialog } from "./_Dialog";
+import { Settings } from "@mui/icons-material";
 
 /**
  * ファイルとスピーカーを設定するボタン
@@ -11,13 +12,9 @@ export function SettingsButton() {
   if (hidden) return null;
   return (
     <>
-      <Button
-        size="small"
-        onClick={handleClick}
-        sx={{ fontSize: "6svmin", minWidth: 0, p: 0 }}
-      >
-        ⚙️
-      </Button>
+      <IconButton size="large" onClick={handleClick}>
+        <Settings fontSize="inherit" sx={{ color: "white" }} />
+      </IconButton>
       <Dialog />
     </>
   );

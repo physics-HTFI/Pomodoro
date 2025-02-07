@@ -5,6 +5,7 @@ import { Counter } from "../Counter/Counter";
 import { SettingsButton } from "../SettingsButton/SettingsButton";
 import { useApp } from "./_useApp";
 import { PipPortal } from "../PipPortal/PipPortal";
+import { Control } from "../Control/Control";
 
 export function App() {
   const { handleClick } = useApp();
@@ -26,7 +27,17 @@ export function App() {
       >
         <Svg />
         <Counter />
-        <Stack direction="row" sx={{ position: "fixed", top: 4, right: 4 }}>
+        <Stack
+          direction="row"
+          sx={{
+            position: "fixed",
+            top: 4,
+            right: 4,
+            alignItems: "center",
+            //"div:not(:hover) > &": { display: "none" },
+          }}
+        >
+          <Control />
           <SettingsButton />
           <PipPopupButton />
         </Stack>

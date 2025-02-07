@@ -1,6 +1,7 @@
-import { Stack } from "@mui/material";
+import { Box, Stack } from "@mui/material";
 import {
   Cancel,
+  ControlCamera,
   KeyboardDoubleArrowDown,
   KeyboardDoubleArrowLeft,
   KeyboardDoubleArrowRight,
@@ -14,14 +15,43 @@ export function Control() {
     useControl();
 
   return (
-    <Stack alignItems="center" alignSelf="center">
-      <Icon icon={<KeyboardDoubleArrowUp />} onClick={clickUp} />
-      <Stack direction="row">
-        <Icon icon={<KeyboardDoubleArrowLeft />} onClick={clickLeft} />
-        <Icon icon={<Cancel />} onClick={clickCenter} />
-        <Icon icon={<KeyboardDoubleArrowRight />} onClick={clickRight} />
+    <Box
+      sx={{
+        "&:hover > :first-child": { display: "none" },
+        "&:not(:hover) > :not(:first-child)": {
+          display: "none",
+        },
+      }}
+    >
+      <ControlCamera
+        sx={{ display: "block", color: "white" }}
+        fontSize="large"
+      />
+      <Stack
+        alignItems="center"
+        alignSelf="center"
+        sx={{ background: "#334d", borderRadius: 5 }}
+      >
+        <Icon
+          icon={<KeyboardDoubleArrowUp fontSize="small" />}
+          onClick={clickUp}
+        />
+        <Stack direction="row">
+          <Icon
+            icon={<KeyboardDoubleArrowLeft fontSize="small" />}
+            onClick={clickLeft}
+          />
+          <Icon icon={<Cancel fontSize="small" />} onClick={clickCenter} />
+          <Icon
+            icon={<KeyboardDoubleArrowRight fontSize="small" />}
+            onClick={clickRight}
+          />
+        </Stack>
+        <Icon
+          icon={<KeyboardDoubleArrowDown fontSize="small" />}
+          onClick={clickDown}
+        />
       </Stack>
-      <Icon icon={<KeyboardDoubleArrowDown />} onClick={clickDown} />
-    </Stack>
+    </Box>
   );
 }

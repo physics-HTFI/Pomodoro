@@ -2,7 +2,6 @@ import { Stack } from "@mui/material";
 import { useCounter } from "./_useCounter";
 import { styles } from "./_styles";
 import { Category } from "./_Category";
-import { Control } from "../Control/Control";
 
 /**
  * カウント値を表示するコンポーネント
@@ -16,7 +15,6 @@ export function Counter() {
       <Category sx={styles.weeks} countsWithClassName={counts.weeks} />
       <Category sx={styles.months} countsWithClassName={counts.months} />
       <Category sx={styles.years} countsWithClassName={counts.years} />
-      <Control />
     </Stack>
   );
 }
