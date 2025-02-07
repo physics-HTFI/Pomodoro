@@ -1,6 +1,6 @@
 import { Stack } from "@mui/material";
 import { useCounter } from "./_useCounter";
-import { styles } from "./_styles";
+import { sx } from "./_sx";
 import { Category } from "./_Category";
 
 /**
@@ -10,11 +10,11 @@ export function Counter() {
   const { counts, hasFile } = useCounter();
   if (!counts || !hasFile) return null;
   return (
-    <Stack sx={styles.stack}>
-      <Category sx={styles.days} countsWithClassName={counts.days} />
-      <Category sx={styles.weeks} countsWithClassName={counts.weeks} />
-      <Category sx={styles.months} countsWithClassName={counts.months} />
-      <Category sx={styles.years} countsWithClassName={counts.years} />
+    <Stack sx={sx.stack}>
+      <Category sx={sx.days} counts={counts.days} tooltip="日ごとの値" />
+      <Category sx={sx.weeks} counts={counts.weeks} tooltip="週ごとの値" />
+      <Category sx={sx.months} counts={counts.months} tooltip="月ごとの値" />
+      <Category sx={sx.years} counts={counts.years} tooltip="年ごとの値" />
     </Stack>
   );
 }

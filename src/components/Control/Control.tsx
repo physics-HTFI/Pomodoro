@@ -33,21 +33,29 @@ export function Control() {
         sx={{ background: "#334d", borderRadius: 5 }}
       >
         <Icon
+          tooltip="カウント値 +1"
           icon={<KeyboardDoubleArrowUp fontSize="small" />}
           onClick={clickUp}
         />
         <Stack direction="row">
           <Icon
+            tooltip="残り時間 +1分"
             icon={<KeyboardDoubleArrowLeft fontSize="small" />}
             onClick={clickLeft}
           />
-          <Icon icon={<Cancel fontSize="small" />} onClick={clickCenter} />
           <Icon
+            tooltip="タイマーリセット"
+            icon={<Cancel fontSize="small" />}
+            onClick={clickCenter}
+          />
+          <Icon
+            tooltip="残り時間 -1分"
             icon={<KeyboardDoubleArrowRight fontSize="small" />}
             onClick={clickRight}
           />
         </Stack>
         <Icon
+          tooltip="カウント値 -1"
           icon={<KeyboardDoubleArrowDown fontSize="small" />}
           onClick={clickDown}
         />

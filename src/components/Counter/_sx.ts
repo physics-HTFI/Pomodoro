@@ -1,7 +1,7 @@
 import { SxProps } from "@mui/material";
 import { TypeCategory } from "../../types/TypeCategory";
 
-export const styles: Record<"stack" | TypeCategory, SxProps> = {
+export const sx: Record<"stack" | TypeCategory, SxProps> = {
   stack: {
     color: "white",
     fontSize: "max(3svmin, 0.6rem)",

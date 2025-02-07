@@ -1,20 +1,24 @@
-import { Box, SxProps } from "@mui/material";
+import { Box, SxProps, Tooltip } from "@mui/material";
 import { TypeClassName } from "../../types/TypeClassName";
 
 export function Category({
+  tooltip,
   sx,
-  countsWithClassName,
+  counts: countsWithClassName,
 }: {
+  tooltip: string;
   sx?: SxProps;
-  countsWithClassName: { count: string; className?: TypeClassName }[];
+  counts: { count: string; className?: TypeClassName }[];
 }) {
   return (
-    <Box sx={sx}>
-      {countsWithClassName.map((c, i) => (
-        <span key={`${i}`} className={c.className}>
-          {c.count}
-        </span>
-      ))}
-    </Box>
+    <Tooltip title={tooltip} disableInteractive placement="bottom" followCursor>
+      <Box sx={sx}>
+        {countsWithClassName.map((c, i) => (
+          <span key={`${i}`} className={c.className}>
+            {c.count}
+          </span>
+        ))}
+      </Box>
+    </Tooltip>
   );
 }
