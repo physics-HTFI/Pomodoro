@@ -3,6 +3,7 @@ import { TypeCounts } from "../../types/TypeCounts";
 import { indexedDb } from "./_/_indexedDb";
 import { readAsync } from "./_/_readAsync";
 import { saveAsync } from "./_/_saveAsync";
+import { update } from "./_update";
 
 /**
  * `counts`と`fileHandle`を同時に扱う `atom` 群
@@ -13,7 +14,7 @@ export const atomCountsFile = {
    */
   getAsync: atom(async (get) => {
     const countsFile = get(atomCountsFile0);
-    const counts = countsFile.counts;
+    let counts = countsFile.counts;
     if (counts) return { ...countsFile, counts } satisfies TypeCountFile;
     // 初回はデータベースからの読み込みを試みる
     const file = await indexedDb.fileHandle.getAsync();
@@ -21,13 +22,15 @@ export const atomCountsFile = {
     if (result.status === "old") return { counts: result.counts, file };
     // 読み込めなければ初期値を返す
     await indexedDb.fileHandle.deleteAsync();
+    counts = {
+      days: {},
+      weeks: {},
+      months: {},
+      years: {},
+    };
+    update(counts, 0);
     return {
-      counts: {
-        days: {},
-        weeks: {},
-        months: {},
-        years: {},
-      },
+      counts,
       file: undefined,
     };
   }),
