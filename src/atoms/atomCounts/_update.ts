@@ -2,7 +2,6 @@ import { TypeCategory } from "../../types/TypeCategory";
 import { TypeCounts } from "../../types/TypeCounts";
 import { getKey } from "./_/_getKey";
 import { getNextKey } from "./_/_getNextKey";
-import { trimOldEntries } from "./_/_trimOldEntries";
 import { deltaIsValid } from "./_/_deltaIsValid";
 
 /**
@@ -26,7 +25,7 @@ export function update(counts: TypeCounts, delta: number) {
   addDelta("years", counts, delta);
 
   // 多くなりすぎたキーを削除する
-  trimOldEntries(counts["days"], 1000);
+  //trimOldEntries(counts["days"], 1000);
 }
 
 /**
