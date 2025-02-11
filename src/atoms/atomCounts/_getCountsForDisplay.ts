@@ -7,8 +7,8 @@ import { TypeCounts } from "../../types/TypeCounts";
  */
 export function getCountsForDisplay(counts: TypeCounts) {
   return {
-    days: getSpans(counts, "days").slice(0, 15),
-    weeks: getSpans(counts, "weeks").slice(0, 12),
+    days: getSpans(counts, "days", 100),
+    weeks: getSpans(counts, "weeks", 100),
     months: getSpans(counts, "months"),
     years: getSpans(counts, "years"),
   };
@@ -25,9 +25,13 @@ interface CountWithClassName {
 
 function getSpans(
   counts: TypeCounts,
-  category: TypeCategory
+  category: TypeCategory,
+  maxNum?: number
 ): CountWithClassName[] {
-  return Object.values(counts[category]).reverse().map(toCountWithClassName);
+  return Object.values(counts[category])
+    .slice(-(maxNum ?? 0))
+    .reverse()
+    .map(toCountWithClassName);
 
   function toCountWithClassName(c: number, i: number) {
     const count = `${Math.trunc(c / 2)}${c % 2 === 0 ? "" : "'"}`;
