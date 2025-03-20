@@ -13,16 +13,10 @@ export const atomCountsFile = {
    * `counts`と`fileHandle`を取得する `atom`
    */
   getAsync: atom(async (get) => {
-    const countsFile = get(atomCountsFile0);
-    let counts = countsFile.counts;
-    if (counts) return { ...countsFile, counts } satisfies TypeCountFile;
-    // 初回はデータベースからの読み込みを試みる
-    const file = await indexedDb.fileHandle.getAsync();
-    await file?.requestPermission({ mode: "readwrite" });
-    const result = await readAsync(file);
-    if (result.status === "old") return { counts: result.counts, file };
-    // 読み込めなければ初期値を返す
-    // await indexedDb.fileHandle.deleteAsync();
+    let { counts, file } = get(atomCountsFile0);
+    if (counts) return { counts, file } satisfies TypeCountFile;
+    // 値が入っていない場合は初期値を返す
+    file = undefined;
     counts = {
       days: {},
       weeks: {},
@@ -30,10 +24,16 @@ export const atomCountsFile = {
       years: {},
     };
     update(counts, 0);
-    return {
-      counts,
-      file: undefined,
-    };
+    return { counts, file };
+  }),
+
+  /**
+   * `IndexedDB`からファイルの読み込みを試みる
+   */
+  loadLastUsedFileAsync: atom(null, async (_, set) => {
+    const file = await indexedDb.fileHandle.getAsync();
+    await file?.requestPermission({ mode: "readwrite" });
+    await set(atomCountsFile.setFileAsync, file);
   }),
 
   /**
@@ -41,9 +41,15 @@ export const atomCountsFile = {
    */
   setCountsAsync: atom(null, async (get, set, counts: TypeCounts) => {
     const countsFile = await get(atomCountsFile.getAsync);
-    await saveAsync(counts, countsFile.file);
+    const saved = await saveAsync(counts, countsFile.file);
+    set(atomSaved, saved);
     set(atomCountsFile0, { ...countsFile, counts });
   }),
+
+  /**
+   * 保存が成功したかを返す `atom`
+   */
+  getSaved: atom((get) => get(atomSaved)),
 
   /**
    * `fileHandle`を設定する `atom`
@@ -76,3 +82,4 @@ interface TypeCountFile {
 }
 
 const atomCountsFile0 = atom<Partial<TypeCountFile>>({});
+const atomSaved = atom(true);

@@ -14,7 +14,8 @@ export const atomCounts = {
   getCountsForDisplay: unwrap(
     atom(async (get) => {
       const { counts } = await get(atomCountsFile.getAsync);
-      return getCountsForDisplay(counts);
+      const saved = get(atomCountsFile.getSaved);
+      return getCountsForDisplay(counts, saved);
     })
   ),
 
@@ -24,8 +25,8 @@ export const atomCounts = {
    */
   getFileName: unwrap(
     atom(async (get) => {
-      const { file: fileHandle } = await get(atomCountsFile.getAsync);
-      return fileHandle?.name ?? "";
+      const { file } = await get(atomCountsFile.getAsync);
+      return file?.name ?? "";
     }),
     (val) => val ?? ""
   ),

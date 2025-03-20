@@ -5,12 +5,12 @@ import { TypeCounts } from "../../types/TypeCounts";
 /**
  * `counts`をhtml表示用の形式に変形する
  */
-export function getCountsForDisplay(counts: TypeCounts) {
+export function getCountsForDisplay(counts: TypeCounts, saved: boolean) {
   return {
-    days: getSpans(counts, "days", 100),
-    weeks: getSpans(counts, "weeks", 100),
-    months: getSpans(counts, "months"),
-    years: getSpans(counts, "years"),
+    days: getSpans(counts, "days", saved ? 100 : 1),
+    weeks: saved ? getSpans(counts, "weeks", 100) : [],
+    months: saved ? getSpans(counts, "months") : [],
+    years: saved ? getSpans(counts, "years") : [],
   };
 }
 
