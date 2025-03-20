@@ -18,10 +18,11 @@ export const atomCountsFile = {
     if (counts) return { ...countsFile, counts } satisfies TypeCountFile;
     // 初回はデータベースからの読み込みを試みる
     const file = await indexedDb.fileHandle.getAsync();
+    await file?.requestPermission({ mode: "readwrite" });
     const result = await readAsync(file);
     if (result.status === "old") return { counts: result.counts, file };
     // 読み込めなければ初期値を返す
-    await indexedDb.fileHandle.deleteAsync();
+    // await indexedDb.fileHandle.deleteAsync();
     counts = {
       days: {},
       weeks: {},
@@ -59,6 +60,7 @@ export const atomCountsFile = {
     }
 
     // 読み込み成功
+    // 既存ファイルの場合はファイルのカウント値、空白ファイルの場合は現在のカウント値を設定する。
     const counts = result.status === "old" ? result.counts : countsFile.counts;
     set(atomCountsFile0, { counts, file });
     await indexedDb.fileHandle.setAsync(file);
