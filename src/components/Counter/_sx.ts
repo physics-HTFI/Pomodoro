@@ -28,7 +28,7 @@ export const sx: Record<"stack" | TypeCategory, SxProps> = {
     "&:not(:hover) > :not(div:first-of-type)": {
       display: "none",
     },
-    "&:not(:hover) > div > span:nth-of-type(n+9)": {
+    "&:not(:hover) > div > .月曜~span": {
       display: "none",
     },
   },
