@@ -14,17 +14,18 @@ export const atomCountsFile = {
    */
   getAsync: atom(async (get) => {
     let { counts, file } = get(atomCountsFile0);
-    if (counts) return { counts, file } satisfies TypeCountFile;
-    // 値が入っていない場合は初期値を返す
-    file = undefined;
-    counts = {
-      days: {},
-      weeks: {},
-      months: {},
-      years: {},
-    };
-    update(counts, 0);
-    return { counts, file };
+    if (!counts) {
+      // 読み込み失敗時は初期値を返す
+      file = undefined;
+      counts = {
+        days: {},
+        weeks: {},
+        months: {},
+        years: {},
+      };
+    }
+    update(counts);
+    return { counts, file } satisfies TypeCountFile;
   }),
 
   /**

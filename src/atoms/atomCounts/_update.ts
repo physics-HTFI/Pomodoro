@@ -8,7 +8,7 @@ import { deltaIsValid } from "./_/_deltaIsValid";
  * 必要であれば日付の追加を行う。
  * また、今日のカウント値を `delta` だけ変更する。
  */
-export function update(counts: TypeCounts, delta: number) {
+export function update(counts: TypeCounts, delta: number = 0) {
   // これ以上カウント値を引けない場合は何もしない
   if (!deltaIsValid(counts, delta)) return;
 
