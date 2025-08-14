@@ -1,4 +1,5 @@
 import { IconButton, Tooltip } from "@mui/material";
+import { ReactNode } from "react";
 
 export function Icon({
   icon,
@@ -6,7 +7,7 @@ export function Icon({
   tooltip,
   onClick,
 }: {
-  icon: JSX.Element;
+  icon: ReactNode;
   size?: "small" | "medium" | "large";
   tooltip?: string;
   onClick?: () => void;
