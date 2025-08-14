@@ -1,6 +1,4 @@
 import { IconButton, Tooltip } from "@mui/material";
-import { useAtomValue } from "jotai";
-import { atomPipWindow } from "../../atoms/atomPipWindow";
 
 export function Icon({
   icon,
@@ -13,10 +11,18 @@ export function Icon({
   tooltip?: string;
   onClick?: () => void;
 }) {
-  const isPip = useAtomValue(atomPipWindow) !== undefined; // ツールチップは<body>の末尾に追加されるのでピクチャインピクチャには表示できない
-  if (isPip) tooltip = undefined;
   return (
-    <Tooltip title={tooltip} disableInteractive placement="left" followCursor>
+    <Tooltip
+      title={tooltip}
+      disableInteractive
+      placement="left"
+      followCursor
+      slotProps={{
+        popper: {
+          disablePortal: true, // これがないとツールチップが<body>の末尾に追加されるてしまいピクチャインピクチャには表示できない
+        },
+      }}
+    >
       <IconButton size={size ?? "small"} onClick={onClick}>
         {icon}
       </IconButton>
