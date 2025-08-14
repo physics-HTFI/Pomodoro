@@ -3,13 +3,13 @@ import { Svg } from "../Svg/Svg";
 import { PipPopupButton } from "../PipButton/PipPopupButton";
 import { Counter } from "../Counter/Counter";
 import { SettingsButton } from "../SettingsButton/SettingsButton";
-import { useApp } from "./_useApp";
+import { useClick } from "./use/useClick";
 import { PipPortal } from "../PipPortal/PipPortal";
 import { Control } from "../Control/Control";
-import { theme } from "./theme";
+import { theme } from "./ui/theme";
 
 export function App() {
-  const { handleClick } = useApp();
+  const { handleClick } = useClick();
 
   return (
     <PipPortal>
