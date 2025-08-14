@@ -9,19 +9,19 @@ export function useControl() {
   const isPip = useAtomValue(atomPipWindow) !== undefined;
   const resetTimer = useSetAtom(atomTimer.reset);
   const skipTimerBy = useSetAtom(atomTimer.skipBy);
-  const clickUp = useCallback(() => updateCounts(1), [updateCounts]);
-  const clickDown = useCallback(() => updateCounts(-1), [updateCounts]);
-  const clickLeft = useCallback(() => skipTimerBy(60), [skipTimerBy]);
-  const clickRight = useCallback(() => skipTimerBy(-60), [skipTimerBy]);
-  const clickCenter = useCallback(() => resetTimer(), [resetTimer]);
+  const onCountUp = useCallback(() => updateCounts(1), [updateCounts]);
+  const onCountDown = useCallback(() => updateCounts(-1), [updateCounts]);
+  const onTimeUp = useCallback(() => skipTimerBy(60), [skipTimerBy]);
+  const onTimeDown = useCallback(() => skipTimerBy(-60), [skipTimerBy]);
+  const onReset = useCallback(() => resetTimer(), [resetTimer]);
 
   const fontSize: "medium" | "large" = isPip ? "medium" : "large";
   return {
     fontSize,
-    clickUp,
-    clickDown,
-    clickLeft,
-    clickRight,
-    clickCenter,
+    onCountUp,
+    onCountDown,
+    onTimeUp,
+    onTimeDown,
+    onReset,
   };
 }

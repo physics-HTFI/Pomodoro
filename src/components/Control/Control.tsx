@@ -11,7 +11,7 @@ import { Icon } from "./_Icon";
 import { useControl } from "./_useControl";
 
 export function Control() {
-  const { fontSize, clickCenter, clickDown, clickLeft, clickRight, clickUp } =
+  const { fontSize, onReset, onCountUp, onCountDown, onTimeUp, onTimeDown } =
     useControl();
 
   return (
@@ -32,29 +32,29 @@ export function Control() {
         <Icon
           tooltip="カウント値 +1"
           icon={<KeyboardDoubleArrowUp fontSize="inherit" />}
-          onClick={clickUp}
+          onClick={onCountUp}
         />
         <Stack direction="row">
           <Icon
             tooltip="残り時間 +1分"
             icon={<KeyboardDoubleArrowLeft fontSize="inherit" />}
-            onClick={clickLeft}
+            onClick={onTimeUp}
           />
           <Icon
             tooltip="タイマーリセット"
             icon={<Cancel fontSize="inherit" />}
-            onClick={clickCenter}
+            onClick={onReset}
           />
           <Icon
             tooltip="残り時間 -1分"
             icon={<KeyboardDoubleArrowRight fontSize="inherit" />}
-            onClick={clickRight}
+            onClick={onTimeDown}
           />
         </Stack>
         <Icon
           tooltip="カウント値 -1"
           icon={<KeyboardDoubleArrowDown fontSize="inherit" />}
-          onClick={clickDown}
+          onClick={onCountDown}
         />
       </Stack>
     </Box>
