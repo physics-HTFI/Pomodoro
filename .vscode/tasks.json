@@ -5,8 +5,16 @@
       "type": "npm",
       "script": "dev",
       "problemMatcher": [],
-      "label": "npm run dev",
-      "detail": "vite",
+      "label": "npm: dev",
+      "runOptions": {
+        "runOn": "folderOpen"
+      }
+    },
+    {
+      "type": "npm",
+      "script": "storybook",
+      "problemMatcher": [],
+      "label": "npm: storybook",
       "runOptions": {
         "runOn": "folderOpen"
       }
