@@ -1,17 +1,17 @@
 import { IconButton, Tooltip } from "@mui/material";
-import { usePipPopupButton } from "./_usePipPopupButton";
+import { usePipPopupButton } from "./PipPopupButton.use";
 import { Launch } from "@mui/icons-material";
 
 /**
  * ピクチャインピクチャのポップアップ用ボタン
  */
 export function PipPopupButton() {
-  const { hidden, handleClick } = usePipPopupButton();
+  const { isPip, onClick } = usePipPopupButton();
 
-  if (hidden) return null;
+  if (isPip) return null;
   return (
     <Tooltip title="画面をポップアップします">
-      <IconButton size="large" onClick={handleClick}>
+      <IconButton size="large" onClick={onClick}>
         <Launch fontSize="inherit" />
       </IconButton>
     </Tooltip>

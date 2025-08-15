@@ -1,10 +1,9 @@
 import { useAtom } from "jotai";
-import { useCallback } from "react";
 import { atomPipWindow } from "../../atoms/atomPipWindow";
 
 export function usePipPopupButton() {
   const [pipWindow, setPipWindow] = useAtom(atomPipWindow);
-  const handleClick = useCallback(async () => {
+  const onClick = async () => {
     const pip = await window.documentPictureInPicture.requestWindow({
       width: 200,
       height: 200,
@@ -12,14 +11,11 @@ export function usePipPopupButton() {
     });
     setPipWindow(pip);
     pip.document.body.style.margin = "0";
-    pip.addEventListener("unload", () => {
-      setPipWindow(undefined);
-    });
-  }, [setPipWindow]);
+    pip.addEventListener("unload", () => setPipWindow(undefined));
+  };
 
-  const hidden = pipWindow !== undefined;
   return {
-    hidden,
-    handleClick,
+    isPip: pipWindow !== undefined,
+    onClick,
   };
 }
