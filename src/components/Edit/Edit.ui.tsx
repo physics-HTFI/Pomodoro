@@ -7,7 +7,7 @@ import {
   KeyboardDoubleArrowRight,
   KeyboardDoubleArrowUp,
 } from "@mui/icons-material";
-import { Icon } from "./ui/Icon";
+import { Icon } from "../common/Icon";
 
 export function UI_Edit({
   fontSize,
@@ -17,7 +17,7 @@ export function UI_Edit({
   onTimeDown,
   onTimeUp,
 }: {
-  fontSize: "small" | "medium" | "large";
+  fontSize?: "small" | "medium" | "large";
   onReset: () => void;
   onCountUp: () => void;
   onCountDown: () => void;
@@ -42,24 +42,33 @@ export function UI_Edit({
         <Icon
           tooltip="カウント値 +1"
           icon={KeyboardDoubleArrowUp}
+          size="small"
           onClick={onCountUp}
         />
         <Stack direction="row">
           <Icon
             tooltip="残り時間 +1分"
             icon={KeyboardDoubleArrowLeft}
+            size="small"
             onClick={onTimeUp}
           />
-          <Icon tooltip="タイマーリセット" icon={Cancel} onClick={onReset} />
+          <Icon
+            tooltip="タイマーリセット"
+            icon={Cancel}
+            size="small"
+            onClick={onReset}
+          />
           <Icon
             tooltip="残り時間 -1分"
             icon={KeyboardDoubleArrowRight}
+            size="small"
             onClick={onTimeDown}
           />
         </Stack>
         <Icon
           tooltip="カウント値 -1"
           icon={KeyboardDoubleArrowDown}
+          size="small"
           onClick={onCountDown}
         />
       </Stack>

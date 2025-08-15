@@ -9,7 +9,7 @@ export function useEdit() {
   const skipTimerBy = useSetAtom(atomTimer.skipBy);
   const isPip = useAtomValue(atomPipWindow) !== undefined;
 
-  const fontSize: "medium" | "large" = isPip ? "medium" : "large";
+  const fontSize: "medium" | undefined = isPip ? "medium" : undefined;
   return {
     fontSize,
     onCountUp: () => updateCounts(1),

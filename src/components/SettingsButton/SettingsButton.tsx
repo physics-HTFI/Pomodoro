@@ -1,7 +1,7 @@
-import { IconButton, Tooltip } from "@mui/material";
 import { useSettingsButton } from "./_useSettingsButton";
 import { Dialog } from "./_Dialog";
 import { Settings } from "@mui/icons-material";
+import { Icon } from "../common/Icon";
 
 /**
  * ファイルとスピーカーを設定するボタン
@@ -13,11 +13,11 @@ export function SettingsButton() {
   return (
     <>
       {!open && ( // 設定ダイアログを表示したときに一瞬左上にツールチップが残るのを防ぐ
-        <Tooltip title="ファイルと音声の出力先を設定します">
-          <IconButton size="large" onClick={handleClick}>
-            <Settings fontSize="inherit" />
-          </IconButton>
-        </Tooltip>
+        <Icon
+          tooltip="ファイルと音声の出力先を設定します"
+          icon={Settings}
+          onClick={handleClick}
+        />
       )}
       <Dialog />
     </>

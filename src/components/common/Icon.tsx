@@ -3,11 +3,13 @@ import { IconButton, Tooltip } from "@mui/material";
 
 export function Icon({
   icon,
-  size,
   tooltip,
+  size = "large",
+  followCursor = false,
   onClick,
 }: {
   icon: typeof Cancel;
+  followCursor?: boolean;
   size?: "small" | "medium" | "large";
   tooltip?: string;
   onClick?: () => void;
@@ -17,15 +19,15 @@ export function Icon({
     <Tooltip
       title={tooltip}
       disableInteractive
-      placement="left"
-      followCursor
+      placement={followCursor ? "left" : undefined}
+      followCursor={followCursor}
       slotProps={{
         popper: {
           disablePortal: true, // これがないとツールチップが<body>の末尾に追加されるてしまいピクチャインピクチャには表示できない
         },
       }}
     >
-      <IconButton size={size ?? "small"} onClick={onClick}>
+      <IconButton size={size} onClick={onClick}>
         <InnerIcon fontSize="inherit" />
       </IconButton>
     </Tooltip>
