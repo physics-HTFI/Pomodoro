@@ -1,6 +1,6 @@
 import { useSetAtom } from "jotai";
 import { atomTimer } from "../../atoms/atomTimer/atomTimer";
-import { modelPip } from "../PipPortal/model/modelPip";
+import { modelPip } from "../pip/model/modelPip";
 
 export function useClick() {
   const toggle = useSetAtom(atomTimer.toggle);

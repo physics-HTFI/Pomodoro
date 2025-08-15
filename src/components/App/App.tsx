@@ -1,13 +1,13 @@
 import { Stack, ThemeProvider } from "@mui/material";
 import { Svg } from "../Svg/Svg";
-import { PipPopupButton } from "../PipButton/PipPopupButton";
+import { PipPopupButton } from "../pip/PipPopupButton";
 import { Counter } from "../Counter/Counter";
 import { SettingsButton } from "../SettingsButton/SettingsButton";
 import { useClick } from "./App.use";
-import { PipPortal } from "../PipPortal/PipPortal";
 import { theme } from "./ui/theme";
 import { MainContainer } from "./ui/MainContainer";
 import { Edit } from "../Edit/Edit";
+import { PipPortal } from "../pip/PipPortal";
 
 export function App() {
   const { onTimerClick, document } = useClick();

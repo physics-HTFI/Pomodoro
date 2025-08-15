@@ -4,7 +4,9 @@ import { ReactNode } from "react";
 import { modelPip } from "./model/modelPip";
 
 /**
- * ピクチャインピクチャ用のポータル（ReactコンポーネントをPiPに送った時に正常動作させるのに必要）
+ * ピクチャインピクチャ用のポータル。
+ * `children`をPiPウィンドウに移動する。
+ * （ReactコンポーネントをPiPに送った時に正常動作させるのに必要。）
  */
 export function PipPortal({ children }: { children: ReactNode }) {
   const { pipDocument } = modelPip.useValues();

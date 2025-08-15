@@ -1,6 +1,6 @@
 import { Launch } from "@mui/icons-material";
 import { Icon } from "../common/Icon";
-import { modelPip } from "../PipPortal/model/modelPip";
+import { modelPip } from "./model/modelPip";
 
 /**
  * ピクチャインピクチャのポップアップ用ボタン

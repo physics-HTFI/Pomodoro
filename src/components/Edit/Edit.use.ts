@@ -1,7 +1,7 @@
 import { useSetAtom } from "jotai";
 import { atomCounts } from "../../atoms/atomCounts/atomCounts";
 import { atomTimer } from "../../atoms/atomTimer/atomTimer";
-import { modelPip } from "../PipPortal/model/modelPip";
+import { modelPip } from "../pip/model/modelPip";
 
 export function useEdit() {
   const updateCounts = useSetAtom(atomCounts.updateAsync);

@@ -7,12 +7,14 @@ export function MainContainer({
   document,
   onTimerClick,
 }: {
-  onTimerClick: () => void;
+  onTimerClick?: () => void;
   children: ReactNode;
-  document: Document;
+  document?: Document;
 }) {
   const ID_MAIN = "main";
   const handleClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    if (!onTimerClick || !document) return;
+
     // クリック位置がタイマー外の場合は何もしない
     const isMain = document.getElementById(ID_MAIN) === e.target;
     const isTimer = document
