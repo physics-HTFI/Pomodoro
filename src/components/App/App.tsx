@@ -1,4 +1,4 @@
-import { Box, Stack, ThemeProvider } from "@mui/material";
+import { Stack, ThemeProvider } from "@mui/material";
 import { Svg } from "../Svg/Svg";
 import { PipPopupButton } from "../PipButton/PipPopupButton";
 import { Counter } from "../Counter/Counter";
@@ -7,26 +7,15 @@ import { useClick } from "./use/useClick";
 import { PipPortal } from "../PipPortal/PipPortal";
 import { Control } from "../Control/Control";
 import { theme } from "./ui/theme";
+import { MainContainer } from "./ui/MainContainer";
 
 export function App() {
-  const { handleClick } = useClick();
+  const { onTimerClick, document } = useClick();
 
   return (
     <PipPortal>
       <ThemeProvider theme={theme}>
-        <Box
-          id="main"
-          sx={{
-            background: "#202124",
-            display: "flex",
-            height: "100svh",
-            justifyContent: "center",
-            alignItems: "center",
-            userSelect: "none",
-            flexDirection: "column",
-          }}
-          onClick={handleClick}
-        >
+        <MainContainer onTimerClick={onTimerClick} document={document}>
           <Svg />
           <Counter />
           <Stack
@@ -43,7 +32,7 @@ export function App() {
             <SettingsButton />
             <PipPopupButton />
           </Stack>
-        </Box>
+        </MainContainer>
       </ThemeProvider>
     </PipPortal>
   );

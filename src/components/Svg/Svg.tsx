@@ -14,7 +14,7 @@ export function Svg() {
 
   return (
     <svg
-      id="svg"
+      id={ID_TIMER}
       viewBox="-1 -1 2 2"
       style={{
         width: "100svmin",
@@ -29,3 +29,5 @@ export function Svg() {
     </svg>
   );
 }
+
+export const ID_TIMER = "timer";
