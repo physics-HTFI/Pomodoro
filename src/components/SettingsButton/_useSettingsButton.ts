@@ -1,13 +1,13 @@
-import { useAtom, useAtomValue, useSetAtom } from "jotai";
+import { useAtom, useSetAtom } from "jotai";
 import { useCallback } from "react";
-import { atomPipWindow } from "../../atoms/atomPipWindow";
 import { atomOpenSettingsDialog } from "../../atoms/atomOpenSettingsDialog";
 import { atomPlay } from "../../atoms/atomPlay/atomPlay";
 import { atomCountsFile } from "../../atoms/atomCounts/_atomCountsFile";
+import { modelPip } from "../PipPortal/model/modelPip";
 
 export function useSettingsButton() {
   const play = useSetAtom(atomPlay.playAsync);
-  const isPip = useAtomValue(atomPipWindow) !== undefined;
+  const { pipOpen } = modelPip.useValues();
   const loadLastUsedFileAsync = useSetAtom(
     atomCountsFile.loadLastUsedFileAsync
   );
@@ -19,7 +19,7 @@ export function useSettingsButton() {
   }, [setOpen, play, loadLastUsedFileAsync]);
 
   return {
-    isPip,
+    pipOpen,
     open,
     handleClick,
   };

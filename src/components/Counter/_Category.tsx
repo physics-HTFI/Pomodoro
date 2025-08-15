@@ -1,7 +1,5 @@
 import { Box, SxProps, Tooltip } from "@mui/material";
 import { TypeClassName } from "../../types/TypeClassName";
-import { useAtomValue } from "jotai";
-import { atomPipWindow } from "../../atoms/atomPipWindow";
 
 export function Category({
   tooltip,
@@ -12,10 +10,18 @@ export function Category({
   sx?: SxProps;
   counts: { count: string; className?: TypeClassName }[];
 }) {
-  const isPip = useAtomValue(atomPipWindow) !== undefined; // ツールチップは<body>の末尾に追加されるのでピクチャインピクチャには表示できない
-  if (isPip) tooltip = undefined;
   return (
-    <Tooltip title={tooltip} disableInteractive placement="bottom" followCursor>
+    <Tooltip
+      title={tooltip}
+      disableInteractive
+      placement="bottom"
+      followCursor
+      slotProps={{
+        popper: {
+          disablePortal: true, // これがないとツールチップが<body>の末尾に追加されるてしまいピクチャインピクチャには表示できない
+        },
+      }}
+    >
       <Box sx={sx}>
         {countsWithClassName.map((c, i) => (
           <span key={`${i}`} className={c.className}>

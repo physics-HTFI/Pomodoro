@@ -1,10 +1,10 @@
-import { useAtomValue, useSetAtom } from "jotai";
+import { useSetAtom } from "jotai";
 import { atomTimer } from "../../atoms/atomTimer/atomTimer";
-import { atomPipWindow } from "../../atoms/atomPipWindow";
+import { modelPip } from "../PipPortal/model/modelPip";
 
 export function useClick() {
   const toggle = useSetAtom(atomTimer.toggle);
-  const pip = useAtomValue(atomPipWindow);
+  const { pipDocument } = modelPip.useValues();
 
-  return { onTimerClick: toggle, document: pip?.document ?? document };
+  return { onTimerClick: toggle, document: pipDocument ?? document };
 }

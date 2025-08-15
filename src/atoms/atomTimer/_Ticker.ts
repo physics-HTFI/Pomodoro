@@ -16,7 +16,7 @@ export class Ticker {
       this.stop();
       handleToggleOff();
     } else {
-      this.#id = setInterval(handleTick, interval);
+      this.#id = window.setInterval(handleTick, interval);
       handleToggleOn();
     }
   }

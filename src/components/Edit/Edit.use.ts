@@ -1,15 +1,15 @@
-import { useAtomValue, useSetAtom } from "jotai";
+import { useSetAtom } from "jotai";
 import { atomCounts } from "../../atoms/atomCounts/atomCounts";
 import { atomTimer } from "../../atoms/atomTimer/atomTimer";
-import { atomPipWindow } from "../../atoms/atomPipWindow";
+import { modelPip } from "../PipPortal/model/modelPip";
 
 export function useEdit() {
   const updateCounts = useSetAtom(atomCounts.updateAsync);
   const resetTimer = useSetAtom(atomTimer.reset);
   const skipTimerBy = useSetAtom(atomTimer.skipBy);
-  const isPip = useAtomValue(atomPipWindow) !== undefined;
+  const { pipOpen } = modelPip.useValues();
 
-  const fontSize: "medium" | undefined = isPip ? "medium" : undefined;
+  const fontSize: "medium" | undefined = pipOpen ? "medium" : undefined;
   return {
     fontSize,
     onCountUp: () => updateCounts(1),
