@@ -3,7 +3,7 @@ import { Svg } from "../Svg/Svg";
 import { PipPopupButton } from "../PipButton/PipPopupButton";
 import { Counter } from "../Counter/Counter";
 import { SettingsButton } from "../SettingsButton/SettingsButton";
-import { useClick } from "./use/useClick";
+import { useClick } from "./App.use";
 import { PipPortal } from "../PipPortal/PipPortal";
 import { theme } from "./ui/theme";
 import { MainContainer } from "./ui/MainContainer";
