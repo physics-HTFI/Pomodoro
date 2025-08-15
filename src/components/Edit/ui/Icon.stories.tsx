@@ -5,8 +5,8 @@ import { Icon } from "./Icon";
 import { Cancel, ControlCamera } from "@mui/icons-material";
 
 const icons = {
-  "Cancel Icon": <Cancel />,
-  "Control Icon": <ControlCamera />,
+  "Cancel Icon": Cancel,
+  "Control Icon": ControlCamera,
 };
 
 const meta = {

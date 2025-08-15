@@ -1,5 +1,5 @@
+import { Cancel } from "@mui/icons-material";
 import { IconButton, Tooltip } from "@mui/material";
-import { ReactNode } from "react";
 
 export function Icon({
   icon,
@@ -7,11 +7,12 @@ export function Icon({
   tooltip,
   onClick,
 }: {
-  icon: ReactNode;
+  icon: typeof Cancel;
   size?: "small" | "medium" | "large";
   tooltip?: string;
   onClick?: () => void;
 }) {
+  const InnerIcon = icon; // 頭文字が小文字の`<icon/>`はエラーになるので大文字になるように置き換えている
   return (
     <Tooltip
       title={tooltip}
@@ -25,7 +26,7 @@ export function Icon({
       }}
     >
       <IconButton size={size ?? "small"} onClick={onClick}>
-        {icon}
+        <InnerIcon fontSize="inherit" />
       </IconButton>
     </Tooltip>
   );

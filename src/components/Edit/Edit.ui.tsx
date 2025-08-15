@@ -33,7 +33,7 @@ export function UI_Edit({
         },
       }}
     >
-      <Icon size={fontSize} icon={<ControlCamera fontSize="inherit" />} />
+      <Icon size={fontSize} icon={ControlCamera} />
       <Stack
         alignItems="center"
         alignSelf="center"
@@ -41,29 +41,25 @@ export function UI_Edit({
       >
         <Icon
           tooltip="カウント値 +1"
-          icon={<KeyboardDoubleArrowUp fontSize="inherit" />}
+          icon={KeyboardDoubleArrowUp}
           onClick={onCountUp}
         />
         <Stack direction="row">
           <Icon
             tooltip="残り時間 +1分"
-            icon={<KeyboardDoubleArrowLeft fontSize="inherit" />}
+            icon={KeyboardDoubleArrowLeft}
             onClick={onTimeUp}
           />
-          <Icon
-            tooltip="タイマーリセット"
-            icon={<Cancel fontSize="inherit" />}
-            onClick={onReset}
-          />
+          <Icon tooltip="タイマーリセット" icon={Cancel} onClick={onReset} />
           <Icon
             tooltip="残り時間 -1分"
-            icon={<KeyboardDoubleArrowRight fontSize="inherit" />}
+            icon={KeyboardDoubleArrowRight}
             onClick={onTimeDown}
           />
         </Stack>
         <Icon
           tooltip="カウント値 -1"
-          icon={<KeyboardDoubleArrowDown fontSize="inherit" />}
+          icon={KeyboardDoubleArrowDown}
           onClick={onCountDown}
         />
       </Stack>
