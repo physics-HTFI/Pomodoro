@@ -5,22 +5,17 @@ import { atomPipWindow } from "../../atoms/atomPipWindow";
 
 export function useControl() {
   const updateCounts = useSetAtom(atomCounts.updateAsync);
-  const isPip = useAtomValue(atomPipWindow) !== undefined;
   const resetTimer = useSetAtom(atomTimer.reset);
   const skipTimerBy = useSetAtom(atomTimer.skipBy);
-  const onCountUp = () => updateCounts(1);
-  const onCountDown = () => updateCounts(-1);
-  const onTimeUp = () => skipTimerBy(60);
-  const onTimeDown = () => skipTimerBy(-60);
-  const onReset = () => resetTimer();
+  const isPip = useAtomValue(atomPipWindow) !== undefined;
 
   const fontSize: "medium" | "large" = isPip ? "medium" : "large";
   return {
     fontSize,
-    onCountUp,
-    onCountDown,
-    onTimeUp,
-    onTimeDown,
-    onReset,
+    onCountUp: () => updateCounts(1),
+    onCountDown: () => updateCounts(-1),
+    onTimeUp: () => skipTimerBy(60),
+    onTimeDown: () => skipTimerBy(-60),
+    onReset: () => resetTimer(),
   };
 }
