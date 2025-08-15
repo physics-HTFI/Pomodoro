@@ -1,12 +1,15 @@
-import { useControl } from "./Control.use";
-import { UI_Control } from "./Control.ui";
+import { useEdit } from "./Edit.use";
+import { UI_Edit } from "./Edit.ui";
 
-export function Control() {
+/**
+ * タイマー・カウント値の編集コンポーネント
+ */
+export function Edit() {
   const { fontSize, onReset, onCountUp, onCountDown, onTimeUp, onTimeDown } =
-    useControl();
+    useEdit();
 
   return (
-    <UI_Control
+    <UI_Edit
       fontSize={fontSize}
       onReset={onReset}
       onCountUp={onCountUp}

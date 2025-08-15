@@ -9,7 +9,7 @@ import {
 } from "@mui/icons-material";
 import { Icon } from "./ui/Icon";
 
-export function UI_Control({
+export function UI_Edit({
   fontSize,
   onCountDown,
   onCountUp,

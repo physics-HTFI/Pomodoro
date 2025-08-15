@@ -3,7 +3,7 @@ import { atomCounts } from "../../atoms/atomCounts/atomCounts";
 import { atomTimer } from "../../atoms/atomTimer/atomTimer";
 import { atomPipWindow } from "../../atoms/atomPipWindow";
 
-export function useControl() {
+export function useEdit() {
   const updateCounts = useSetAtom(atomCounts.updateAsync);
   const resetTimer = useSetAtom(atomTimer.reset);
   const skipTimerBy = useSetAtom(atomTimer.skipBy);

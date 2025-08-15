@@ -1,12 +1,12 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import { Control } from "./Control";
+import { Edit } from "./Edit";
 import { Provider, useAtomValue } from "jotai";
 import { atomTimer } from "../../atoms/atomTimer/atomTimer";
 import { Box, Typography } from "@mui/material";
 import { atomCounts } from "../../atoms/atomCounts/atomCounts";
 
-function TestControl() {
+function TestEdit() {
   const { time } = useAtomValue(atomTimer.getTimeForDisplay);
   const counts = useAtomValue(atomCounts.getCountsForDisplay);
   return (
@@ -17,24 +17,24 @@ function TestControl() {
           counts: {counts?.days[0].count ?? 0}
         </Typography>
       </Box>
-      <Control />
+      <Edit />
     </>
   );
 }
 
 const meta = {
-  component: TestControl,
+  component: TestEdit,
   render: () => (
     <Provider>
       <meta.component />
     </Provider>
   ),
-} satisfies Meta<typeof TestControl>;
+} satisfies Meta<typeof TestEdit>;
 
 export default meta;
 
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
-  name: "Control",
+  name: "Edit",
 };

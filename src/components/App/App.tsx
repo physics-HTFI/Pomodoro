@@ -5,9 +5,9 @@ import { Counter } from "../Counter/Counter";
 import { SettingsButton } from "../SettingsButton/SettingsButton";
 import { useClick } from "./use/useClick";
 import { PipPortal } from "../PipPortal/PipPortal";
-import { Control } from "../Control/Control";
 import { theme } from "./ui/theme";
 import { MainContainer } from "./ui/MainContainer";
+import { Edit } from "../Edit/Edit";
 
 export function App() {
   const { onTimerClick, document } = useClick();
@@ -28,7 +28,7 @@ export function App() {
               "div:not(:hover) > &": { display: "none" },
             }}
           >
-            <Control />
+            <Edit />
             <SettingsButton />
             <PipPopupButton />
           </Stack>
