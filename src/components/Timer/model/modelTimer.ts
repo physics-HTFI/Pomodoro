@@ -4,7 +4,7 @@ import { atomTimer } from "./atom/atomTimer";
 import { atomPlay } from "../../SettingsButton/model/atomPlay/atomPlay";
 import { atomTicker } from "./atom/atomTicker";
 import { getTimerDefault } from "./atom/getTimerDefault";
-import { modelHistory } from "../../History/model/modelHistory";
+import { atomHistory } from "../../History/model/atom/atomHistory/atomHistory";
 
 /**
  * タイマーの取得設定を行う `atom` 群
@@ -44,7 +44,7 @@ export const modelTimer = {
  * タイマーを初期状態にする
  */
 const atomResetAsync = atom(null, async (get, set) => {
-  await set(modelHistory.updateAsync);
+  await set(atomHistory.atomUpdateAsync);
   set(atomTimer, getTimerDefault());
   get(atomTicker).stop();
 });
@@ -53,7 +53,7 @@ const atomResetAsync = atom(null, async (get, set) => {
  * タイマーを停止する
  */
 const atomStopAsync = atom(null, async (get, set) => {
-  await set(modelHistory.updateAsync);
+  await set(atomHistory.atomUpdateAsync);
   set(atomTimer, { ...get(atomTimer), isRunning: false });
   get(atomTicker).stop();
 });
@@ -62,7 +62,7 @@ const atomStopAsync = atom(null, async (get, set) => {
  * タイマーの残り時間を`delta`秒だけ変化させる
  */
 const atomSkipByAsync = atom(null, async (get, set, delta: number) => {
-  await set(modelHistory.updateAsync);
+  await set(atomHistory.atomUpdateAsync);
   const timer = get(atomTimer);
   const seconds = Math.max(0, timer.seconds + delta);
   set(atomTimer, { ...timer, seconds });
@@ -72,7 +72,7 @@ const atomSkipByAsync = atom(null, async (get, set, delta: number) => {
  * タイマーの開始／停止を切り替える `atom`
  */
 const atomToggleAsync = atom(null, async (get, set) => {
-  await set(modelHistory.updateAsync);
+  await set(atomHistory.atomUpdateAsync);
   const isWork = get(atomTimer).status === "work";
   get(atomTicker).toggle(
     1000,
@@ -91,7 +91,7 @@ const atomToggleAsync = atom(null, async (get, set) => {
         const isWork = timer.status === "work";
         timer.status = isWork ? "break" : "work";
         timer.seconds = CONST.seconds[timer.status];
-        await set(modelHistory.updateAsync, isWork ? 1 : 0); // カウント値を+1する
+        await set(atomHistory.atomUpdateAsync, isWork ? 1 : 0); // カウント値を+1する
         await set(atomPlay.playAsync);
       }
       set(atomTimer, { ...timer });

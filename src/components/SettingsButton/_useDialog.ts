@@ -6,8 +6,8 @@ import { modelHistory } from "../History/model/modelHistory";
 
 export function useDialog() {
   const setOpen = useSetAtom(atomOpenSettingsDialog);
-  const fileName = useAtomValue(modelHistory.getFileName) ?? "";
-  const setFileAsync = useSetAtom(modelHistory.setFileAsync);
+  const fileName = modelHistory.useFileName() ?? "";
+  const setFileAsync = modelHistory.useSetFileAsync();
   const setDeviceIdAsync = useSetAtom(atomPlay.setDeviceIdAsync);
   const { devices, selectedIndex } = useAtomValue(atomPlay.getDevicesAsync);
 

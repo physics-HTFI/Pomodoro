@@ -1,9 +1,9 @@
 import { atom } from "jotai";
-import { indexedDb } from "./util/indexedDb";
-import { readAsync } from "./util/readAsync";
-import { saveAsync } from "./util/saveAsync";
-import { update } from "./update";
-import { TypeHistory } from "../type/TypeHistory";
+import { indexedDb } from "./indexedDb";
+import { readAsync } from "./readAsync";
+import { saveAsync } from "./saveAsync";
+import { update } from "../atomHistory/update";
+import { TypeHistory } from "../../type/TypeHistory";
 
 /**
  * `counts`と`fileHandle`を同時に扱う `atom` 群

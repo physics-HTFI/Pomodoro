@@ -1,5 +1,4 @@
 import { UI_Edit } from "./Edit.ui";
-import { useSetAtom } from "jotai";
 import { modelHistory } from "../History/model/modelHistory";
 import { modelTimer } from "../Timer/model/modelTimer";
 import { modelPip } from "../pip/model/modelPip";
@@ -28,7 +27,7 @@ export function Edit() {
 //
 
 function useEdit() {
-  const updateCounts = useSetAtom(modelHistory.updateAsync);
+  const updateCounts = modelHistory.useUpdateAsync();
   const resetTimer = modelTimer.useResetAsync();
   const skipTimerBy = modelTimer.useSkipByAsync();
   const { pipOpen } = modelPip.useValues();

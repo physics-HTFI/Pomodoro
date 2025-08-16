@@ -1,7 +1,7 @@
 import { Stack } from "@mui/material";
 import { sx } from "./ui/sx";
 import { Category } from "./ui/Category";
-import { TypeCountsForDisplay } from "./model/atom/getCountsForDisplay";
+import { TypeCountsForDisplay } from "./model/atom/atomHistory/getCountsForDisplay";
 
 export function UI_History({
   counts,

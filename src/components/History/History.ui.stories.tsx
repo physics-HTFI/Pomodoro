@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { UI_History } from "./History.ui";
-import { getCountsForDisplay } from "./model/atom/getCountsForDisplay";
+import { getCountsForDisplay } from "./model/atom/atomHistory/getCountsForDisplay";
 import { TypeHistory } from "./model/type/TypeHistory";
 
 const range = new Array(30).fill(0).map((_, i) => i);

@@ -1,8 +1,8 @@
-import { getKey } from "./util/getKey";
-import { getNextKey } from "./util/getNextKey";
-import { deltaIsValid } from "./util/deltaIsValid";
-import { TypeCategory } from "../type/TypeCategory";
-import { TypeHistory } from "../type/TypeHistory";
+import { getKey } from "./getKey";
+import { getNextKey } from "./getNextKey";
+import { deltaIsValid } from "./deltaIsValid";
+import { TypeCategory } from "../../type/TypeCategory";
+import { TypeHistory } from "../../type/TypeHistory";
 
 /**
  * 必要であれば日付の追加を行う。
