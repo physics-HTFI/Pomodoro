@@ -9,10 +9,13 @@ import { Edit } from "../Edit/Edit";
 import { PipPortal } from "../pip/PipPortal";
 import { modelTimer } from "../Timer/model/modelTimer";
 import { modelPip } from "../pip/model/modelPip";
+import { Dialog } from "./ui/Dialog";
+import { useLastUsedFile } from "./use/useLastUsedFile";
 
 export function App() {
   const toggle = modelTimer.useToggleAsync();
   const { pipDocument } = modelPip.useValues();
+  const { open, close, load } = useLastUsedFile();
 
   return (
     <PipPortal>
@@ -34,6 +37,7 @@ export function App() {
             <SettingsButton />
             <PipPopupButton />
           </Stack>
+          <Dialog open={open} onClose={close} onLoad={load} />
         </MainContainer>
       </ThemeProvider>
     </PipPortal>
