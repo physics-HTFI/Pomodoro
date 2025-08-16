@@ -1,23 +1,31 @@
+import { atom } from "jotai";
+
+export const atomTicker = atom(() => new Ticker());
+
+//|
+//| private
+//|
+
 /**
  * 一定間隔で処理を行うためのクラス
  */
-export class Ticker {
+class Ticker {
   #id?: number;
 
   /** ティックの開始／停止を切り替える */
   toggle(
     interval: number,
-    handleToggleOff: () => void,
-    handleToggleOn: () => void,
-    handleTick: () => void
+    onToggleOff: () => void,
+    onToggleOn: () => void,
+    onTick: () => void
   ) {
     const isRunning = this.#id !== undefined;
     if (isRunning) {
       this.stop();
-      handleToggleOff();
+      onToggleOff();
     } else {
-      this.#id = window.setInterval(handleTick, interval);
-      handleToggleOn();
+      this.#id = window.setInterval(onTick, interval);
+      onToggleOn();
     }
   }
 

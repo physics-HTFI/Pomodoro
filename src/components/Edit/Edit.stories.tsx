@@ -2,17 +2,17 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 
 import { Edit } from "./Edit";
 import { Provider, useAtomValue } from "jotai";
-import { atomTimer } from "../Svg/model/atomTimer";
+import { modelTimer } from "../Timer/model/modelTimer";
 import { Box, Typography } from "@mui/material";
 import { modelHistory } from "../History/model/modelHistory";
 
 function TestEdit() {
-  const { time } = useAtomValue(atomTimer.getTimeForDisplay);
+  const seconds = modelTimer.useTimerValue().seconds;
   const counts = useAtomValue(modelHistory.getCountsForDisplay);
   return (
     <>
       <Box position="fixed" top={0} left={0} color="white">
-        <Typography variant="h5">time: {time}</Typography>
+        <Typography variant="h5">time: {seconds / 60}:00</Typography>
         <Typography variant="h5">
           counts: {counts?.days[0].count ?? 0}
         </Typography>

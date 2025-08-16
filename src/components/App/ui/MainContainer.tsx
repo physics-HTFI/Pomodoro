@@ -1,6 +1,6 @@
 import { Box } from "@mui/material";
 import { ReactNode } from "react";
-import { ID_TIMER } from "../../Svg/Svg";
+import { ID_TIMER } from "../../Timer/Timer";
 
 export function MainContainer({
   children,

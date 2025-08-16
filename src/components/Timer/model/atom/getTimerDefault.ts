@@ -1,5 +1,5 @@
-import { TypeTimer } from "../../../../types/TypeTimer";
-import { CONST } from "./_CONST";
+import { TypeTimer } from "../type/TypeTimer";
+import { CONST } from "./CONST";
 
 /**
  * `TypeTimer`の初期値を返す

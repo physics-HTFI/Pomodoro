@@ -1,5 +1,5 @@
 import { Box, SxProps, Tooltip } from "@mui/material";
-import { TypeClassName } from "../../../types/TypeClassName";
+import { TypeClassName } from "../model/TypeClassName";
 
 export function Category({
   tooltip,

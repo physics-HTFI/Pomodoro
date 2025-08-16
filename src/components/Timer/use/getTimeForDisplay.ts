@@ -1,5 +1,5 @@
-import { TypeTimer } from "../../../../types/TypeTimer";
-import { CONST } from "./_CONST";
+import { TypeTimer } from "../model/type/TypeTimer";
+import { CONST } from "../model/atom/CONST";
 
 export function getTimeForDisplay({ status, seconds, isRunning }: TypeTimer) {
   const time = getTimeString(seconds);
@@ -19,7 +19,9 @@ export function getTimeForDisplay({ status, seconds, isRunning }: TypeTimer) {
  * ex) 25*60 => "25:00"
  */
 export function getTimeString(seconds: number) {
-  const min = Math.trunc(seconds / 60);
-  const sec = `${seconds % 60}`.padStart(2, "0");
-  return `${min}:${sec}`;
+  const sign = seconds < 0 ? "-" : "";
+  const abs = Math.abs(seconds);
+  const min = Math.trunc(abs / 60);
+  const sec = `${abs % 60}`.padStart(2, "0");
+  return `${sign}${min}:${sec}`;
 }

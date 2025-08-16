@@ -4,6 +4,7 @@ export function Ring({
   width,
   color,
 }: {
+  /** 0:なし, 1:円周 */
   Θ: number;
   r: number;
   width: number;
