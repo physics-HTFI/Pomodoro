@@ -43,7 +43,8 @@ export const atomHistory = {
    */
   atomUpdateAsync: atom(null, async (get, set, delta: number = 0) => {
     const { counts } = await get(atomCountsFile.getAsync);
-    update(counts, delta);
+    const changed = update(counts, delta);
+    if (!changed) return;
     await set(atomCountsFile.setCountsAsync, counts);
   }),
 };
