@@ -1,4 +1,4 @@
-import { TypeTimer } from "../../types/TypeTimer";
+import { TypeTimer } from "../../../../types/TypeTimer";
 import { CONST } from "./_CONST";
 
 /**

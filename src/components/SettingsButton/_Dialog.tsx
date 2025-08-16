@@ -14,7 +14,7 @@ import { Delete, Folder } from "@mui/icons-material";
 import { useDialog } from "./_useDialog";
 import { Suspense } from "react";
 import { useAtomValue } from "jotai";
-import { atomOpenSettingsDialog } from "../../atoms/atomOpenSettingsDialog";
+import { atomOpenSettingsDialog } from "./model/atomOpenSettingsDialog";
 import { Loading } from "./_Loading";
 
 /**

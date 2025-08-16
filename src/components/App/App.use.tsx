@@ -1,5 +1,5 @@
 import { useSetAtom } from "jotai";
-import { atomTimer } from "../../atoms/atomTimer/atomTimer";
+import { atomTimer } from "../Svg/model/atomTimer";
 import { modelPip } from "../pip/model/modelPip";
 
 export function useClick() {

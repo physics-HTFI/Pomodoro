@@ -1,11 +1,11 @@
-import { classNames, TypeClassName } from "../../types/TypeClassName";
-import { TypeCategory } from "../../types/TypeCategory";
-import { TypeCounts } from "../../types/TypeCounts";
+import { TypeCategory } from "../TypeCategory";
+import { classNames, TypeClassName } from "../../../../types/TypeClassName";
+import { TypeHistory } from "../TypeHistory";
 
 /**
  * `counts`をhtml表示用の形式に変形する
  */
-export function getCountsForDisplay(counts: TypeCounts, saved: boolean) {
+export function getCountsForDisplay(counts: TypeHistory, saved: boolean) {
   return {
     days: getSpans(counts, "days", saved ? 100 : 1),
     weeks: saved ? getSpans(counts, "weeks", 100) : [],
@@ -33,7 +33,7 @@ interface CountWithClassName {
 }
 
 function getSpans(
-  counts: TypeCounts,
+  counts: TypeHistory,
   category: TypeCategory,
   maxNum?: number
 ): CountWithClassName[] {

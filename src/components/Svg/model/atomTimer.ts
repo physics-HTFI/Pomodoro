@@ -1,11 +1,11 @@
 import { atom } from "jotai";
-import { CONST } from "./_CONST";
-import { atomTimer0 } from "./_atomTimer0";
-import { atomCounts } from "../atomCounts/atomCounts";
-import { getTimeForDisplay } from "./_getTimeForDisplay";
-import { atomPlay } from "../atomPlay/atomPlay";
-import { atomTicker } from "./_atomTicker";
-import { getTimerDefault as getTimerInit } from "./_getTimerInit";
+import { CONST } from "./atomTimer/_CONST";
+import { atomTimer0 } from "./atomTimer/_atomTimer0";
+import { getTimeForDisplay } from "./atomTimer/_getTimeForDisplay";
+import { atomPlay } from "../../SettingsButton/model/atomPlay/atomPlay";
+import { atomTicker } from "./atomTimer/_atomTicker";
+import { getTimerDefault as getTimerInit } from "./atomTimer/_getTimerInit";
+import { modelHistory } from "../../History/model/modelHistory";
 
 /**
  * タイマーの取得設定を行う `atom` 群
@@ -23,7 +23,7 @@ export const atomTimer = {
    * タイマーを初期状態にする `atom`
    */
   reset: atom(null, (get, set) => {
-    set(atomCounts.updateAsync);
+    set(modelHistory.updateAsync);
     set(atomTimer0, getTimerInit());
     get(atomTicker).stop();
   }),
@@ -32,7 +32,7 @@ export const atomTimer = {
    * タイマーを停止する `atom`
    */
   stop: atom(null, (get, set) => {
-    set(atomCounts.updateAsync);
+    set(modelHistory.updateAsync);
     set(atomTimer0, { ...get(atomTimer0), isRunning: false });
     get(atomTicker).stop();
   }),
@@ -41,7 +41,7 @@ export const atomTimer = {
    * タイマーの残り時間を`delta`秒だけ変化させる `atom`
    */
   skipBy: atom(null, (get, set, delta: number) => {
-    set(atomCounts.updateAsync);
+    set(modelHistory.updateAsync);
     const timer = get(atomTimer0);
     const seconds = Math.max(0, timer.seconds + delta);
     set(atomTimer0, { ...timer, seconds });
@@ -51,7 +51,7 @@ export const atomTimer = {
    * タイマーの開始／停止を切り替える `atom`
    */
   toggle: atom(null, (get, set) => {
-    set(atomCounts.updateAsync);
+    set(modelHistory.updateAsync);
     const isWork = get(atomTimer0).status === "work";
     get(atomTicker).toggle(
       1000,
@@ -70,7 +70,7 @@ export const atomTimer = {
           const isWork = timer.status === "work";
           timer.status = isWork ? "break" : "work";
           timer.seconds = CONST.seconds[timer.status];
-          set(atomCounts.updateAsync, isWork ? 1 : 0); // カウント値を+1する
+          set(modelHistory.updateAsync, isWork ? 1 : 0); // カウント値を+1する
           set(atomPlay.playAsync);
         }
         set(atomTimer0, { ...timer });

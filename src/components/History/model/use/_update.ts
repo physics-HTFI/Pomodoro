@@ -1,14 +1,14 @@
-import { TypeCategory } from "../../types/TypeCategory";
-import { TypeCounts } from "../../types/TypeCounts";
 import { getKey } from "./_/_getKey";
 import { getNextKey } from "./_/_getNextKey";
 import { deltaIsValid } from "./_/_deltaIsValid";
+import { TypeCategory } from "../TypeCategory";
+import { TypeHistory } from "../TypeHistory";
 
 /**
  * 必要であれば日付の追加を行う。
  * また、今日のカウント値を `delta` だけ変更する。
  */
-export function update(counts: TypeCounts, delta: number = 0) {
+export function update(counts: TypeHistory, delta: number = 0) {
   // これ以上カウント値を引けない場合は何もしない
   if (!deltaIsValid(counts, delta)) return;
 
@@ -31,7 +31,7 @@ export function update(counts: TypeCounts, delta: number = 0) {
 /**
  * `counts[category]` に今日に対応するキーがない場合は追加する。
  */
-function addToday(category: TypeCategory, counts: TypeCounts) {
+function addToday(category: TypeCategory, counts: TypeHistory) {
   const todayKey = getKey(category);
   const record = counts[category];
   let lastKey = Object.keys(record).pop();
@@ -52,7 +52,7 @@ function addToday(category: TypeCategory, counts: TypeCounts) {
  * `counts[category]` の今日の値を `delta`だけ変化させる。
  * 今日に対応するキーがない場合は追加する。
  */
-function addDelta(category: TypeCategory, counts: TypeCounts, delta: number) {
+function addDelta(category: TypeCategory, counts: TypeHistory, delta: number) {
   const todayKey = getKey(category);
   counts[category][todayKey] += delta;
 }

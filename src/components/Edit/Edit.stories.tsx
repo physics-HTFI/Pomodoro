@@ -2,13 +2,13 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 
 import { Edit } from "./Edit";
 import { Provider, useAtomValue } from "jotai";
-import { atomTimer } from "../../atoms/atomTimer/atomTimer";
+import { atomTimer } from "../Svg/model/atomTimer";
 import { Box, Typography } from "@mui/material";
-import { atomCounts } from "../../atoms/atomCounts/atomCounts";
+import { modelHistory } from "../History/model/modelHistory";
 
 function TestEdit() {
   const { time } = useAtomValue(atomTimer.getTimeForDisplay);
-  const counts = useAtomValue(atomCounts.getCountsForDisplay);
+  const counts = useAtomValue(modelHistory.getCountsForDisplay);
   return (
     <>
       <Box position="fixed" top={0} left={0} color="white">

@@ -1,11 +1,11 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { UI_History } from "./History.ui";
-import { TypeCounts } from "../../types/TypeCounts";
-import { getCountsForDisplay } from "../../atoms/atomCounts/_getCountsForDisplay";
+import { getCountsForDisplay } from "./model/use/_getCountsForDisplay";
+import { TypeHistory } from "./model/TypeHistory";
 
 const range = new Array(30).fill(0).map((_, i) => i);
 const dict = Object.fromEntries(range.map((i) => [`${i}`, i]));
-const counts: TypeCounts = {
+const counts: TypeHistory = {
   days: dict,
   weeks: dict,
   months: dict,

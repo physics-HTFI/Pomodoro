@@ -1,7 +1,7 @@
-import { TypeCounts } from "../../../types/TypeCounts";
+import { TypeHistory } from "../../TypeHistory";
 
 export async function saveAsync(
-  counts: TypeCounts,
+  counts: TypeHistory,
   file?: FileSystemFileHandle
 ): Promise<boolean> {
   if (!file) return false;

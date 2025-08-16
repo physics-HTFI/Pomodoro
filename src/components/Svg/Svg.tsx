@@ -1,5 +1,5 @@
 import { useAtomValue } from "jotai";
-import { atomTimer } from "../../atoms/atomTimer/atomTimer";
+import { atomTimer } from "./model/atomTimer";
 import { Time } from "./_Time";
 import { Ring } from "./_Ring";
 import { _colors } from "./_color";

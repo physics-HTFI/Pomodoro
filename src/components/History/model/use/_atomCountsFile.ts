@@ -1,9 +1,9 @@
 import { atom } from "jotai";
-import { TypeCounts } from "../../types/TypeCounts";
 import { indexedDb } from "./_/_indexedDb";
 import { readAsync } from "./_/_readAsync";
 import { saveAsync } from "./_/_saveAsync";
 import { update } from "./_update";
+import { TypeHistory } from "../TypeHistory";
 
 /**
  * `counts`と`fileHandle`を同時に扱う `atom` 群
@@ -40,7 +40,7 @@ export const atomCountsFile = {
   /**
    * `counts`を設定する `atom`
    */
-  setCountsAsync: atom(null, async (get, set, counts: TypeCounts) => {
+  setCountsAsync: atom(null, async (get, set, counts: TypeHistory) => {
     const countsFile = await get(atomCountsFile.getAsync);
     const saved = await saveAsync(counts, countsFile.file);
     set(atomSaved, saved);
@@ -78,7 +78,7 @@ export const atomCountsFile = {
 };
 
 interface TypeCountFile {
-  counts: TypeCounts;
+  counts: TypeHistory;
   file?: FileSystemFileHandle;
 }
 

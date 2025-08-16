@@ -1,13 +1,13 @@
 import { atom } from "jotai";
 import { unwrap } from "jotai/utils";
-import { atomCountsFile } from "./_atomCountsFile";
-import { getCountsForDisplay } from "./_getCountsForDisplay";
-import { update } from "./_update";
+import { atomCountsFile } from "./use/_atomCountsFile";
+import { getCountsForDisplay } from "./use/_getCountsForDisplay";
+import { update } from "./use/_update";
 
 /**
  * カウントの値の取得・設定を行う `atom` 群
  */
-export const atomCounts = {
+export const modelHistory = {
   /**
    * カウント値を（html表示用の形式で）取得する `atom`
    */
@@ -39,7 +39,7 @@ export const atomCounts = {
    */
   setFileAsync: atom(null, async (_get, set, file?: FileSystemFileHandle) => {
     await set(atomCountsFile.setFileAsync, file);
-    await set(atomCounts.updateAsync);
+    await set(modelHistory.updateAsync);
   }),
 
   /**

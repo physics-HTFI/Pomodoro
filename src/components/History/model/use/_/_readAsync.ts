@@ -1,5 +1,5 @@
-import { TypeCategory } from "../../../types/TypeCategory";
-import { TypeCounts } from "../../../types/TypeCounts";
+import { TypeCategory } from "../../TypeCategory";
+import { TypeHistory } from "../../TypeHistory";
 
 /**
  * ファイルからカウント値を取得する。
@@ -9,7 +9,7 @@ import { TypeCounts } from "../../../types/TypeCounts";
 export async function readAsync(
   fileHandle?: FileSystemFileHandle
 ): Promise<
-  { status: "failed" | "new" } | { status: "old"; counts: TypeCounts }
+  { status: "failed" | "new" } | { status: "old"; counts: TypeHistory }
 > {
   if (!fileHandle) return { status: "failed" };
   try {

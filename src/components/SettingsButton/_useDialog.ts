@@ -1,13 +1,13 @@
 import { useAtomValue, useSetAtom } from "jotai";
 import { useCallback } from "react";
-import { atomOpenSettingsDialog } from "../../atoms/atomOpenSettingsDialog";
-import { atomCounts } from "../../atoms/atomCounts/atomCounts";
-import { atomPlay } from "../../atoms/atomPlay/atomPlay";
+import { atomOpenSettingsDialog } from "./model/atomOpenSettingsDialog";
+import { atomPlay } from "./model/atomPlay/atomPlay";
+import { modelHistory } from "../History/model/modelHistory";
 
 export function useDialog() {
   const setOpen = useSetAtom(atomOpenSettingsDialog);
-  const fileName = useAtomValue(atomCounts.getFileName) ?? "";
-  const setFileAsync = useSetAtom(atomCounts.setFileAsync);
+  const fileName = useAtomValue(modelHistory.getFileName) ?? "";
+  const setFileAsync = useSetAtom(modelHistory.setFileAsync);
   const setDeviceIdAsync = useSetAtom(atomPlay.setDeviceIdAsync);
   const { devices, selectedIndex } = useAtomValue(atomPlay.getDevicesAsync);
 

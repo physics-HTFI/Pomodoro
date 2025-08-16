@@ -1,10 +1,10 @@
 import { useSetAtom } from "jotai";
-import { atomCounts } from "../../atoms/atomCounts/atomCounts";
-import { atomTimer } from "../../atoms/atomTimer/atomTimer";
+import { atomTimer } from "../Svg/model/atomTimer";
 import { modelPip } from "../pip/model/modelPip";
+import { modelHistory } from "../History/model/modelHistory";
 
 export function useEdit() {
-  const updateCounts = useSetAtom(atomCounts.updateAsync);
+  const updateCounts = useSetAtom(modelHistory.updateAsync);
   const resetTimer = useSetAtom(atomTimer.reset);
   const skipTimerBy = useSetAtom(atomTimer.skipBy);
   const { pipOpen } = modelPip.useValues();
