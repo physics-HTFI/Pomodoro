@@ -1,5 +1,5 @@
 import { Box, SxProps, Tooltip } from "@mui/material";
-import { TypeClassName } from "../../types/TypeClassName";
+import { TypeClassName } from "../../../types/TypeClassName";
 
 export function Category({
   tooltip,
@@ -18,7 +18,7 @@ export function Category({
       followCursor
       slotProps={{
         popper: {
-          disablePortal: true, // これがないとツールチップが<body>の末尾に追加されるてしまいピクチャインピクチャには表示できない
+          disablePortal: true, // これがない場合→ツールチップが<body>の末尾に追加される→ピクチャインピクチャで表示できない
         },
       }}
     >

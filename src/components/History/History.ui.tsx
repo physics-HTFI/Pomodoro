@@ -1,13 +1,15 @@
 import { Stack } from "@mui/material";
-import { useCounter } from "./_useCounter";
-import { sx } from "./_sx";
-import { Category } from "./_Category";
+import { sx } from "./ui/sx";
+import { Category } from "./ui/Category";
+import type { TypeCountsForDisplay } from "../../atoms/atomCounts/_getCountsForDisplay";
 
-/**
- * カウント値を表示するコンポーネント
- */
-export function Counter() {
-  const { counts, hasFile } = useCounter();
+export function UI_History({
+  counts,
+  hasFile,
+}: {
+  counts: TypeCountsForDisplay;
+  hasFile: boolean;
+}) {
   if (!counts) return null;
   return (
     <Stack sx={sx.stack}>

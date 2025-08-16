@@ -1,5 +1,5 @@
 import { SxProps } from "@mui/material";
-import { TypeCategory } from "../../types/TypeCategory";
+import { TypeCategory } from "../../../types/TypeCategory";
 
 export const sx: Record<"stack" | TypeCategory, SxProps> = {
   stack: {
@@ -14,7 +14,7 @@ export const sx: Record<"stack" | TypeCategory, SxProps> = {
     px: 1,
     py: 0.5,
     // テキストのスタイル
-    "& > div:first-of-type span:first-of-type": {
+    "& > * > span:first-of-type": {
       marginLeft: 0,
       fontSize: "1.2em",
     },

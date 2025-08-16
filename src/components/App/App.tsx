@@ -1,7 +1,7 @@
 import { Stack, ThemeProvider } from "@mui/material";
 import { Svg } from "../Svg/Svg";
 import { PipPopupButton } from "../pip/PipPopupButton";
-import { Counter } from "../Counter/Counter";
+import { History } from "../History/History";
 import { SettingsButton } from "../SettingsButton/SettingsButton";
 import { useClick } from "./App.use";
 import { theme } from "./ui/theme";
@@ -17,7 +17,7 @@ export function App() {
       <ThemeProvider theme={theme}>
         <MainContainer onTimerClick={onTimerClick} document={document}>
           <Svg />
-          <Counter />
+          <History />
           <Stack
             direction="row"
             sx={{

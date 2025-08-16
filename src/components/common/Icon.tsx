@@ -23,7 +23,7 @@ export function Icon({
       followCursor={followCursor}
       slotProps={{
         popper: {
-          disablePortal: true, // これがないとツールチップが<body>の末尾に追加されるてしまいピクチャインピクチャには表示できない
+          disablePortal: true, // これがない場合→ツールチップが<body>の末尾に追加される→ピクチャインピクチャで表示できない
         },
       }}
     >

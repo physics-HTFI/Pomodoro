@@ -14,6 +14,15 @@ export function getCountsForDisplay(counts: TypeCounts, saved: boolean) {
   };
 }
 
+export type TypeCountsForDisplay =
+  | {
+      days: CountWithClassName[];
+      weeks: CountWithClassName[];
+      months: CountWithClassName[];
+      years: CountWithClassName[];
+    }
+  | undefined;
+
 //|
 //| ローカル
 //|
