@@ -7,10 +7,10 @@ import { TypeHistory } from "../../type/TypeHistory";
  */
 export function getCountsForDisplay(counts: TypeHistory, saved: boolean) {
   return {
-    days: getSpans(counts, "days", saved ? 100 : 1),
-    weeks: saved ? getSpans(counts, "weeks", 100) : [],
-    months: saved ? getSpans(counts, "months") : [],
-    years: saved ? getSpans(counts, "years") : [],
+    days: getSpans(counts, "days", saved ? 30 : 1),
+    weeks: saved ? getSpans(counts, "weeks", 30) : [],
+    months: saved ? getSpans(counts, "months", 30) : [],
+    years: saved ? getSpans(counts, "years", 30) : [],
   };
 }
 
