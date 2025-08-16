@@ -1,5 +1,5 @@
-import { TypeHistory } from "../../TypeHistory";
-import { getKey } from "./_getKey";
+import { TypeHistory } from "../../type/TypeHistory";
+import { getKey } from "./getKey";
 
 /**
  * カウント値をこれ以上引けないときに`false`を返す

@@ -3,7 +3,7 @@ import { useCallback } from "react";
 import { atomOpenSettingsDialog } from "./model/atomOpenSettingsDialog";
 import { atomPlay } from "./model/atomPlay/atomPlay";
 import { modelPip } from "../pip/model/modelPip";
-import { atomCountsFile } from "../History/model/use/_atomCountsFile";
+import { atomCountsFile } from "../History/model/atom/atomCountsFile";
 
 export function useSettingsButton() {
   const play = useSetAtom(atomPlay.playAsync);

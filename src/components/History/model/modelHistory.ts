@@ -1,8 +1,8 @@
 import { atom } from "jotai";
 import { unwrap } from "jotai/utils";
-import { atomCountsFile } from "./use/_atomCountsFile";
-import { getCountsForDisplay } from "./use/_getCountsForDisplay";
-import { update } from "./use/_update";
+import { atomCountsFile } from "./atom/atomCountsFile";
+import { getCountsForDisplay } from "./atom/getCountsForDisplay";
+import { update } from "./atom/update";
 
 /**
  * カウントの値の取得・設定を行う `atom` 群

@@ -1,4 +1,4 @@
-import { TypeHistory } from "../../TypeHistory";
+import { TypeHistory } from "../../type/TypeHistory";
 
 export async function saveAsync(
   counts: TypeHistory,

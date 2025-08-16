@@ -1,5 +1,5 @@
 import { SxProps } from "@mui/material";
-import { TypeCategory } from "../model/TypeCategory";
+import { TypeCategory } from "../model/type/TypeCategory";
 
 export const sx: Record<"stack" | TypeCategory, SxProps> = {
   stack: {

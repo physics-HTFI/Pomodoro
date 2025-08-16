@@ -1,7 +1,7 @@
 // オブジェクト中でソートされた状態を保つには、キーは数値に変換できなければならない。
 // そのため、`20250101`のようなキーは良いが、`2025-01-01`はダメ。
 
-import { TypeCategory } from "../../TypeCategory";
+import { TypeCategory } from "../../type/TypeCategory";
 
 /**
  * `date` をキーに変換して返す。

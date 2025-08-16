@@ -1,5 +1,5 @@
-import { TypeCategory } from "../../TypeCategory";
-import { TypeHistory } from "../../TypeHistory";
+import { TypeCategory } from "../../type/TypeCategory";
+import { TypeHistory } from "../../type/TypeHistory";
 
 /**
  * ファイルからカウント値を取得する。

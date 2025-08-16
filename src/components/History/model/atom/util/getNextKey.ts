@@ -1,5 +1,5 @@
-import { TypeCategory } from "../../TypeCategory";
-import { getKey } from "./_getKey";
+import { TypeCategory } from "../../type/TypeCategory";
+import { getKey } from "./getKey";
 
 /**
  * `key`の次に来るキーを返す。

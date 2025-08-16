@@ -1,6 +1,6 @@
-import { TypeCategory } from "../TypeCategory";
-import { classNames, TypeClassName } from "../TypeClassName";
-import { TypeHistory } from "../TypeHistory";
+import { TypeCategory } from "../type/TypeCategory";
+import { classNames, TypeClassName } from "../type/TypeClassName";
+import { TypeHistory } from "../type/TypeHistory";
 
 /**
  * `counts`をhtml表示用の形式に変形する
