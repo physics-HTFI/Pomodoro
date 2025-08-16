@@ -13,7 +13,7 @@ export function History() {
   // 60秒ごとに日付が変わっていないか確認する
   useEffect(() => {
     const id = window.setInterval(update, 60 * 1000);
-    return clearInterval(id);
+    return () => clearInterval(id);
   }, [update]);
 
   return <UI_History counts={counts} hasFile={hasFile} />;
