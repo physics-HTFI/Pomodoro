@@ -1,8 +1,8 @@
 import { useAtomValue, useSetAtom } from "jotai";
 import { useCallback } from "react";
-import { atomOpenSettingsDialog } from "./model/atomOpenSettingsDialog";
-import { atomPlay } from "./model/atomPlay/atomPlay";
-import { modelHistory } from "../History/model/modelHistory";
+import { atomOpenSettingsDialog } from "../model/atomOpenSettingsDialog";
+import { atomPlay } from "../model/atomPlay/atomPlay";
+import { modelHistory } from "../../History/model/modelHistory";
 
 export function useDialog() {
   const setOpen = useSetAtom(atomOpenSettingsDialog);

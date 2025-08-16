@@ -1,10 +1,10 @@
 import { atom } from "jotai";
-import { atomAudioContext } from "./_atomAudioContext";
-import { atomAudioBuffer } from "./_atomAudioBuffer";
-import { atomDeviceId } from "./_atomDeviceId";
-import { atomSetAudioContextAsync } from "./_atomSetAudioContextAsync";
-import { play } from "./_play";
-import { atomGetDevicesAsync } from "./_atomGetDevicesAsync";
+import { atomAudioContext } from "./atomAudioContext";
+import { atomAudioBuffer } from "./atomAudioBuffer";
+import { atomDeviceId } from "./atomDeviceId";
+import { atomSetAudioContextAsync } from "./atomSetAudioContextAsync";
+import { play } from "./play";
+import { atomGetDevicesAsync } from "./atomGetDevicesAsync";
 
 /**
  * 効果音の再生・設定を行う `atom` 群

@@ -1,5 +1,5 @@
-import { useSettingsButton } from "./_useSettingsButton";
-import { Dialog } from "./_Dialog";
+import { useSettingsButton } from "./SettingsButton.use";
+import { Dialog } from "./ui/Dialog";
 import { Settings } from "@mui/icons-material";
 import { Icon } from "../common/Icon";
 

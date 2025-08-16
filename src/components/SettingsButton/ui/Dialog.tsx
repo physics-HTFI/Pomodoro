@@ -11,11 +11,11 @@ import {
   TextField,
 } from "@mui/material";
 import { Delete, Folder } from "@mui/icons-material";
-import { useDialog } from "./_useDialog";
+import { useDialog } from "../use/useDialog";
 import { Suspense } from "react";
 import { useAtomValue } from "jotai";
-import { atomOpenSettingsDialog } from "./model/atomOpenSettingsDialog";
-import { Loading } from "./_Loading";
+import { atomOpenSettingsDialog } from "../model/atomOpenSettingsDialog";
+import { Loading } from "./Loading";
 
 /**
  * 設定ボタンを押したときに現れる選択ダイアログ

@@ -1,6 +1,6 @@
 import { atom } from "jotai";
-import { atomAudioBuffer } from "./_atomAudioBuffer";
-import { atomAudioContext } from "./_atomAudioContext";
+import { atomAudioBuffer } from "./atomAudioBuffer";
+import { atomAudioContext } from "./atomAudioContext";
 
 /**
  * `AudioContext`を（まだ生成されていなければ）生成する。
