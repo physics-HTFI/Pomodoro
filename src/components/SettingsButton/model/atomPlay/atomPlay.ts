@@ -18,7 +18,7 @@ export const atomPlay = {
     const id = get(atomDeviceId);
     const selectedIndex = Math.max(
       0,
-      devices.findIndex((d) => d.deviceId === id)
+      devices.findIndex((d) => d.deviceId === id),
     );
     return { devices, selectedIndex };
   }),
@@ -51,6 +51,6 @@ export const atomPlay = {
       await audioContext?.setSinkId(deviceId);
       set(atomDeviceId, deviceId);
       if (play) await set(atomPlay.playAsync);
-    }
+    },
   ),
 };
