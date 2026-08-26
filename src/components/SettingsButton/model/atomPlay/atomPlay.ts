@@ -48,7 +48,7 @@ export const atomPlay = {
     async (get, set, deviceId: string, play: boolean) => {
       await set(atomSetAudioContextAsync);
       const audioContext = get(atomAudioContext);
-      await audioContext?.setSinkId(deviceId);
+      await audioContext?.setSinkId?.(deviceId);
       set(atomDeviceId, deviceId);
       if (play) await set(atomPlay.playAsync);
     },
