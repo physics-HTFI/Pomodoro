@@ -7,6 +7,7 @@ function TestTimer(timer: {
   isRunning: boolean;
   seconds: number;
   status: TypeTimerStatus;
+  hasBreak: boolean;
 }) {
   return <UI_Timer timer={timer} />;
 }
@@ -34,5 +35,6 @@ export const Default: Story = {
     status: "work",
     isRunning: true,
     seconds: 25 * 60,
+    hasBreak: false,
   },
 };
