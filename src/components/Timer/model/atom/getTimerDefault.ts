@@ -9,5 +9,6 @@ export function getTimerDefault(): TypeTimer {
     status: "work",
     seconds: CONST.seconds["work"],
     isRunning: false,
+    hasBreak: true,
   };
 }

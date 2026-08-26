@@ -13,14 +13,17 @@ import { Dialog } from "./ui/Dialog";
 import { useLastUsedFile } from "./use/useLastUsedFile";
 
 export function App() {
-  const toggle = modelTimer.useToggleAsync();
   const { pipDocument } = modelPip.useValues();
   const { open, close, load } = useLastUsedFile();
 
   return (
     <PipPortal>
       <ThemeProvider theme={theme}>
-        <MainContainer onTimerClick={toggle} document={pipDocument ?? document}>
+        <MainContainer
+          onToggleTimer={modelTimer.useToggleAsync()}
+          onToggleBreak={modelTimer.useToggleBreakAsync()}
+          document={pipDocument ?? document}
+        >
           <Timer />
           <History />
           <Stack

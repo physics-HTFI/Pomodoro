@@ -34,6 +34,11 @@ export const modelTimer = {
    * タイマーの開始／停止を切り替える
    */
   useToggleAsync: () => useSetAtom(atomToggleAsync),
+
+  /**
+   * 休憩をはさむかを切り替える
+   */
+  useToggleBreakAsync: () => useSetAtom(atomToggleBreakAsync),
 };
 
 //|
@@ -45,7 +50,7 @@ export const modelTimer = {
  */
 const atomResetAsync = atom(null, async (get, set) => {
   await set(atomHistory.atomUpdateAsync);
-  set(atomTimer, getTimerDefault());
+  set(atomTimer, { ...getTimerDefault(), hasBreak: get(atomTimer).hasBreak });
   get(atomTicker).stop();
 });
 
@@ -89,7 +94,7 @@ const atomToggleAsync = atom(null, async (get, set) => {
       timer.seconds -= 1;
       if (timer.seconds <= 0) {
         const isWork = timer.status === "work";
-        timer.status = isWork ? "break" : "work";
+        timer.status = isWork && timer.hasBreak ? "break" : "work";
         timer.seconds = CONST.seconds[timer.status];
         await set(atomHistory.atomUpdateAsync, isWork ? 1 : 0); // カウント値を+1する
         await set(atomPlay.playAsync);
@@ -98,6 +103,29 @@ const atomToggleAsync = atom(null, async (get, set) => {
       if (timer.seconds === 10) {
         await set(atomPlay.playAsync, 0.0001); // 予め無音で再生しておくと、実際に鳴らしたときに遅延しない（0だと効果なし）
       }
-    }
+    },
   );
+});
+
+/**
+ * 休憩を有無を切り替える `atom`
+ */
+const atomToggleBreakAsync = atom(null, async (get, set) => {
+  const isWork = get(atomTimer).status === "work";
+  const isRunning = get(atomTimer).isRunning;
+  const hasBreak = get(atomTimer).hasBreak;
+
+  set(atomTimer, { ...get(atomTimer), hasBreak: !hasBreak });
+
+  if (isWork) {
+    // タイマーストップ時は、作業を開始する
+    if (!isRunning) {
+      await set(atomToggleAsync);
+    }
+  } else {
+    // ここは常に hasBreak === true
+    // break 中は、タイマーをリセットして作業を開始する
+    await set(atomResetAsync);
+    await set(atomToggleAsync);
+  }
 });

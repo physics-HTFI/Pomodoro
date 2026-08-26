@@ -5,7 +5,7 @@ import { getTimeForDisplay } from "./use/getTimeForDisplay";
 import { TypeTimerStatus } from "./model/type/TypeTimerStatus";
 
 export function UI_Timer({ timer, id }: { timer: TypeTimer; id?: string }) {
-  const { breakProgress, isRunning, status, time, workProgress } =
+  const { breakProgress, isRunning, status, time, workProgress, hasBreak } =
     getTimeForDisplay(timer);
   return (
     <svg
@@ -19,8 +19,14 @@ export function UI_Timer({ timer, id }: { timer: TypeTimer; id?: string }) {
       }}
     >
       <Time time={time} color={COLORS[status]} />
-      <Ring Θ={workProgress} r={0.9} width={0.06} color={COLORS.work} />
-      <Ring Θ={breakProgress} r={0.85} width={0.01} color={COLORS.break} />
+      {hasBreak ? (
+        <>
+          <Ring Θ={workProgress} r={0.9} width={0.06} color={COLORS.work} />
+          <Ring Θ={breakProgress} r={0.85} width={0.01} color={COLORS.break} />
+        </>
+      ) : (
+        <Ring Θ={workProgress} r={0.88} width={0.1} color={COLORS.work} />
+      )}
     </svg>
   );
 }

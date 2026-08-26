@@ -1,7 +1,12 @@
 import { TypeTimer } from "../model/type/TypeTimer";
 import { CONST } from "../model/atom/CONST";
 
-export function getTimeForDisplay({ status, seconds, isRunning }: TypeTimer) {
+export function getTimeForDisplay({
+  status,
+  seconds,
+  isRunning,
+  hasBreak,
+}: TypeTimer) {
   const time = getTimeString(seconds);
   const progress = seconds / CONST.seconds[status];
   const workProgress = status === "work" ? progress : 0;
@@ -12,6 +17,7 @@ export function getTimeForDisplay({ status, seconds, isRunning }: TypeTimer) {
     isRunning,
     workProgress,
     breakProgress,
+    hasBreak,
   };
 }
 
