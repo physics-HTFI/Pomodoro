@@ -13,7 +13,7 @@ export const atomHistory = {
       const { counts } = await get(atomCountsFile.getAsync);
       const saved = get(atomCountsFile.getSaved);
       return getCountsForDisplay(counts, saved);
-    })
+    }),
   ),
 
   /**
@@ -24,7 +24,7 @@ export const atomHistory = {
       const { file } = await get(atomCountsFile.getAsync);
       return file?.name ?? "";
     }),
-    (val) => val ?? ""
+    (val) => val ?? "",
   ),
 
   /**
@@ -35,7 +35,7 @@ export const atomHistory = {
     async (_get, set, file?: FileSystemFileHandle) => {
       await set(atomCountsFile.setFileAsync, file);
       await set(atomHistory.atomUpdateAsync);
-    }
+    },
   ),
 
   /**
