@@ -37,6 +37,7 @@ export const atomPlay = {
     const idNew = get(atomDeviceId);
     if (idCurrent !== idNew) set(atomPlay.setDeviceIdAsync, idNew, false);
     // 再生
+    await audioContext.resume();
     play(audioContext, audioBuffer, volume);
   }),
 
