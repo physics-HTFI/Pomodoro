@@ -5,6 +5,7 @@ import { atomPlay } from "../../SettingsButton/model/atomPlay/atomPlay";
 import { atomTicker } from "./atom/atomTicker";
 import { getTimerDefault } from "./atom/getTimerDefault";
 import { atomHistory } from "../../History/model/atom/atomHistory/atomHistory";
+import { TypeTimer } from "./type/TypeTimer";
 
 /**
  * タイマーの取得設定を行う `atom` 群
@@ -39,6 +40,12 @@ export const modelTimer = {
    * 休憩をはさむかを切り替える
    */
   useToggleBreakAsync: () => useSetAtom(atomToggleBreakAsync),
+
+  localStorage: {
+    saveTimer: saveTimerToLocalStorage,
+    loadTimer: loadTimerFromLocalStorage,
+    useLoadTimer: () => useSetAtom(atomLoadTimer),
+  },
 };
 
 //|
@@ -51,6 +58,7 @@ export const modelTimer = {
 const atomResetAsync = atom(null, async (get, set) => {
   await set(atomHistory.atomUpdateAsync);
   set(atomTimer, { ...getTimerDefault(), hasBreak: get(atomTimer).hasBreak });
+  modelTimer.localStorage.saveTimer(get(atomTimer));
   get(atomTicker).stop();
 });
 
@@ -60,6 +68,7 @@ const atomResetAsync = atom(null, async (get, set) => {
 const atomStopAsync = atom(null, async (get, set) => {
   await set(atomHistory.atomUpdateAsync);
   set(atomTimer, { ...get(atomTimer), isRunning: false });
+  modelTimer.localStorage.saveTimer(get(atomTimer));
   get(atomTicker).stop();
 });
 
@@ -71,6 +80,7 @@ const atomSkipByAsync = atom(null, async (get, set, delta: number) => {
   const timer = get(atomTimer);
   const seconds = Math.max(0, timer.seconds + delta);
   set(atomTimer, { ...timer, seconds });
+  modelTimer.localStorage.saveTimer(get(atomTimer));
 });
 
 /**
@@ -87,6 +97,7 @@ const atomToggleAsync = atom(null, async (get, set) => {
     async () => {
       if (isWork) await set(atomPlay.playAsync);
       set(atomTimer, { ...get(atomTimer), isRunning: true });
+      modelTimer.localStorage.saveTimer(get(atomTimer));
     },
     // onTick
     async () => {
@@ -100,6 +111,9 @@ const atomToggleAsync = atom(null, async (get, set) => {
         await set(atomPlay.playAsync);
       }
       set(atomTimer, { ...timer });
+      modelTimer.localStorage.saveTimer(get(atomTimer));
+
+      // 予め無音で再生しておくと、実際に鳴らしたときに遅延しない（0だと効果なし）
       if (timer.seconds === 10) {
         await set(atomPlay.playAsync, 0.0001); // 予め無音で再生しておくと、実際に鳴らしたときに遅延しない（0だと効果なし）
       }
@@ -116,6 +130,7 @@ const atomToggleBreakAsync = atom(null, async (get, set) => {
   const hasBreak = get(atomTimer).hasBreak;
 
   set(atomTimer, { ...get(atomTimer), hasBreak: !hasBreak });
+  modelTimer.localStorage.saveTimer(get(atomTimer));
 
   if (isWork) {
     // タイマーストップ時は、作業を開始する
@@ -128,4 +143,30 @@ const atomToggleBreakAsync = atom(null, async (get, set) => {
     await set(atomResetAsync);
     await set(atomToggleAsync);
   }
+});
+
+//|
+//| localStorage
+//|
+
+const TIMER_STORAGE_KEY = "timer";
+
+function saveTimerToLocalStorage(timer: TypeTimer) {
+  const stoppedTimer = { ...timer, isRunning: false };
+  localStorage.setItem(TIMER_STORAGE_KEY, JSON.stringify(stoppedTimer));
+}
+
+function loadTimerFromLocalStorage(): TypeTimer {
+  const defaultTimer = getTimerDefault();
+  try {
+    const timerStr = localStorage.getItem(TIMER_STORAGE_KEY);
+    if (!timerStr) return defaultTimer;
+    return { ...defaultTimer, ...JSON.parse(timerStr) };
+  } catch {
+    return defaultTimer;
+  }
+}
+
+const atomLoadTimer = atom(null, async (_, set) => {
+  set(atomTimer, modelTimer.localStorage.loadTimer());
 });

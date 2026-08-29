@@ -3,13 +3,15 @@ import { useEffect, useState } from "react";
 import { atomCountsFile } from "../../History/model/atom/atomCountsFile/atomCountsFile";
 import { atomPlay } from "../../SettingsButton/model/atomPlay/atomPlay";
 import { indexedDb } from "../../History/model/atom/atomCountsFile/indexedDb";
+import { modelTimer } from "../../Timer/model/modelTimer";
 
 export function useLastUsedFile() {
   const [file, setFile] = useState<FileSystemHandle>();
   const loadLastUsedFileAsync = useSetAtom(
-    atomCountsFile.loadLastUsedFileAsync
+    atomCountsFile.loadLastUsedFileAsync,
   );
   const play = useSetAtom(atomPlay.playAsync);
+  const loadTimer = modelTimer.localStorage.useLoadTimer();
 
   useEffect(() => {
     indexedDb.fileHandle.getAsync().then((file) => setFile(file));
@@ -20,7 +22,8 @@ export function useLastUsedFile() {
     close: () => setFile(undefined),
     load: async () => {
       await loadLastUsedFileAsync();
-      await play();
+      loadTimer();
+      await play(0.0001);
     },
   };
 }
