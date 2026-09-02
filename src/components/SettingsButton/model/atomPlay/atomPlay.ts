@@ -25,9 +25,8 @@ export const atomPlay = {
 
   /**
    * タイムアップ時の効果音を再生する。
-   * 'volume'は0の時無音、1または`undefined`の時最大。
    */
-  playAsync: atom(null, async (get, set, volume: number = 1) => {
+  playAsync: atom(null, async (get, set) => {
     await set(atomSetAudioContextAsync);
     const audioContext = get(atomAudioContext);
     const audioBuffer = get(atomAudioBuffer);
@@ -37,8 +36,7 @@ export const atomPlay = {
     const idNew = get(atomDeviceId);
     if (idCurrent !== idNew) set(atomPlay.setDeviceIdAsync, idNew, false);
     // 再生
-    await audioContext.resume();
-    play(audioContext, audioBuffer, volume);
+    void play(audioContext, audioBuffer);
   }),
 
   /**

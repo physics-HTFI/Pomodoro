@@ -112,12 +112,6 @@ const atomToggleAsync = atom(null, async (get, set) => {
       }
       set(atomTimer, { ...timer });
       modelTimer.localStorage.saveTimer(get(atomTimer));
-
-      // 予め無音で再生しておくと、実際に鳴らしたときに遅延しない（0だと効果なし）。
-      // デバイスによって不要な場合があるもよう。
-      //if (timer.seconds === 10) {
-      //  await set(atomPlay.playAsync, 0.0001);
-      //}
     },
   );
 });
