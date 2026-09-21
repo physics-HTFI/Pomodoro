@@ -117,14 +117,16 @@ const atomToggleAsync = atom(null, async (get, set) => {
 });
 
 /**
- * 休憩を有無を切り替える `atom`
+ * 休憩の有無を切り替える `atom`
  */
 const atomToggleBreakAsync = atom(null, async (get, set) => {
   const isWork = get(atomTimer).status === "work";
   const isRunning = get(atomTimer).isRunning;
   const hasBreak = get(atomTimer).hasBreak;
 
-  set(atomTimer, { ...get(atomTimer), hasBreak: !hasBreak });
+  if (isWork) {
+    set(atomTimer, { ...get(atomTimer), hasBreak: !hasBreak });
+  }
   modelTimer.localStorage.saveTimer(get(atomTimer));
 
   if (isWork) {
