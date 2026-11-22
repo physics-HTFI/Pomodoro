@@ -47,7 +47,14 @@ export const atomPlay = {
     async (get, set, deviceId: string, play: boolean) => {
       await set(atomSetAudioContextAsync);
       const audioContext = get(atomAudioContext);
-      await audioContext?.setSinkId?.(deviceId);
+      try {
+        await audioContext?.setSinkId?.(deviceId);
+      } catch (error) {
+        // 保存済みのデバイスが見つからない場合（デバイスの取り外しや、ブラウザ側でデバイスIDがリセットされた場合など）は既定のデバイスに戻す
+        console.warn("出力デバイスを既定に戻します:", error);
+        deviceId = "";
+        await audioContext?.setSinkId?.(deviceId).catch(() => {});
+      }
       set(atomDeviceId, deviceId);
       if (play) await set(atomPlay.playAsync);
     },

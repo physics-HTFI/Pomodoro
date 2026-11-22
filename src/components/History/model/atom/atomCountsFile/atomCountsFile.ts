@@ -32,9 +32,15 @@ export const atomCountsFile = {
    * `IndexedDB`からファイルの読み込みを試みる
    */
   loadLastUsedFileAsync: atom(null, async (_, set) => {
-    const file = await indexedDb.fileHandle.getAsync();
-    await file?.requestPermission({ mode: "readwrite" });
-    await set(atomCountsFile.setFileAsync, file);
+    try {
+      const file = await indexedDb.fileHandle.getAsync();
+      await file?.requestPermission({ mode: "readwrite" });
+      await set(atomCountsFile.setFileAsync, file);
+    } catch (error) {
+      // ファイルの移動・削除や権限の拒否などで失敗した場合は、保存済みのハンドルを破棄して次回以降の失敗を防ぐ
+      await indexedDb.fileHandle.deleteAsync().catch(() => {});
+      throw error;
+    }
   }),
 
   /**

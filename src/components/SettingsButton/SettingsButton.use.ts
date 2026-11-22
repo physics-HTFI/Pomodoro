@@ -14,8 +14,13 @@ export function useSettingsButton() {
   const [open, setOpen] = useAtom(atomOpenSettingsDialog);
   const handleClick = useCallback(async () => {
     play();
-    await loadLastUsedFileAsync();
+    // 先にダイアログを開く（ファイルの読み込みが失敗・保留されてもダイアログが表示されるように）
     setOpen(true);
+    try {
+      await loadLastUsedFileAsync();
+    } catch (error) {
+      console.warn("前回のファイルの読み込みに失敗しました:", error);
+    }
   }, [setOpen, play, loadLastUsedFileAsync]);
 
   return {
